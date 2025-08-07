@@ -179,7 +179,7 @@ const NavigationManager = {
     }
 
     // Ocultar sección actual
-    this.hidCurrentSection();
+    this.hideCurrentSection();
 
     // Actualizar estado
     const previousSection = this.state.currentSection;
@@ -246,7 +246,7 @@ const NavigationManager = {
   /**
    * Ocultar sección actual
    */
-  hidCurrentSection() {
+  hideCurrentSection() {
     const currentSection = document.getElementById(
       `${this.state.currentSection}-section`
     );

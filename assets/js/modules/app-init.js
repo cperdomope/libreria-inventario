@@ -8,14 +8,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Inicializando aplicación...');
     
-    // Inicializar navegación
-    AppNavigation.init();
+    // Inicializar navegación usando NavigationManager
+    if (window.NavigationManager) {
+        NavigationManager.init();
+    }
     
     // Inicializar eventos de UI
     initUIEvents();
-    
-    // Cargar sección inicial
-    initDefaultSection();
     
     console.log('Aplicación inicializada correctamente');
 });
