@@ -13,74 +13,6 @@
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/animations.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .sidebar-transition {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
-        }
-
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .gradient-card {
-            background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
-        }
-
-        .animate-bounce-slow {
-            animation: bounce 2s infinite;
-        }
-
-        .animate-pulse-slow {
-            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .chart-container {
-            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .slide-in {
-            animation: slideIn 0.6s ease-out;
-        }
-
-        .notification-badge {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-    </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -93,12 +25,12 @@
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                     <div class="flex items-center space-x-3">
-                        <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+                        <div class="header-logo">
                             <i class="fas fa-book text-2xl"></i>
                         </div>
                         <div>
-                            <h1 class="text-xl font-bold">Librería Digital</h1>
-                            <p class="text-sm opacity-90">Sistema de Inventario</p>
+                            <h1 class="header-title">Librería Digital</h1>
+                            <p class="header-subtitle">Sistema de Inventario</p>
                         </div>
                     </div>
                 </div>
@@ -108,8 +40,7 @@
                         <div class="relative">
                             <i
                                 class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" placeholder="Buscar libros..."
-                                class="pl-10 pr-4 py-2 rounded-lg bg-white bg-opacity-20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 w-64">
+                            <input type="text" placeholder="Buscar libros..." class="search-input">
                         </div>
                     </div>
 
@@ -117,14 +48,13 @@
                         <div class="relative">
                             <button class="relative text-white hover:text-gray-200 transition-colors">
                                 <i class="fas fa-bell text-xl"></i>
-                                <span
-                                    class="notification-badge absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                                <span class="notification-badge">3</span>
                             </button>
                         </div>
 
                         <div class="flex items-center space-x-3">
                             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
-                                alt="Usuario" class="w-10 h-10 rounded-full border-2 border-white border-opacity-50">
+                                alt="Usuario" class="user-avatar">
                             <div class="hidden md:block">
                                 <p class="font-medium">Carlos Ivan Perdomo</p>
                                 <p class="text-sm opacity-75">Administrador</p>
@@ -392,97 +322,12 @@
         </div>
     </div>
 
-    <script>
-        // Navigation functionality
-        const navLinks = document.querySelectorAll('.nav-link');
-        const contentSections = document.querySelectorAll('.content-section');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-        // Section navigation
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                // Remove active class from all links
-                navLinks.forEach(l => {
-                    l.classList.remove('bg-indigo-50', 'text-indigo-600');
-                    l.classList.add('text-gray-700');
-                });
-
-                // Add active class to clicked link
-                link.classList.add('bg-indigo-50', 'text-indigo-600');
-                link.classList.remove('text-gray-700');
-
-                // Hide all sections
-                contentSections.forEach(section => {
-                    section.classList.add('hidden');
-                });
-
-                // Show target section
-                const targetSection = link.getAttribute('data-section') + '-section';
-                const section = document.getElementById(targetSection);
-                if (section) {
-                    section.classList.remove('hidden');
-                    section.classList.add('slide-in');
-                }
-
-                // Close mobile sidebar
-                if (window.innerWidth < 1024) {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebarOverlay.classList.add('hidden');
-                }
-            });
-        });
-
-        // Mobile sidebar toggle
-        if (sidebarToggle) {
-            sidebarToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('-translate-x-full');
-                sidebarOverlay.classList.toggle('hidden');
-            });
-        }
-
-        // Close sidebar when clicking overlay
-        if (sidebarOverlay) {
-            sidebarOverlay.addEventListener('click', () => {
-                sidebar.classList.add('-translate-x-full');
-                sidebarOverlay.classList.add('hidden');
-            });
-        }
-
-        // Close sidebar on window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {
-                sidebar.classList.remove('-translate-x-full');
-                sidebarOverlay.classList.add('hidden');
-            }
-        });
-
-        // Add some interactive animations
-        document.querySelectorAll('.card-hover').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-4px)';
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-            });
-        });
-
-        // Initialize with dashboard view
-        document.addEventListener('DOMContentLoaded', () => {
-            const dashboardLink = document.querySelector('[data-section="dashboard"]');
-            if (dashboardLink) {
-                dashboardLink.click();
-            }
-        });
-    </script>
-
     <!-- JavaScript Assets -->
+    <script src="assets/js/utils/helpers.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/navigation.js"></script>
+    <script src="assets/js/modules/navigation.js"></script>
+    <script src="assets/js/components/dashboard.js"></script>
+    <script src="assets/js/modules/app-init.js"></script>
 </body>
 
 </html>

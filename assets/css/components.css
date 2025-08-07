@@ -4,6 +4,143 @@
    Descripción: Estilos de componentes específicos
    =============================================== */
 
+/* ===== HEADER COMPONENTS ===== */
+
+/* Header gradient background */
+.gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Header logo and title styles */
+.header-logo {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+}
+
+.header-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.header-subtitle {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+/* Search input styles */
+.search-input {
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 16rem;
+}
+
+.search-input::placeholder {
+    color: rgb(209 213 219);
+}
+
+.search-input:focus {
+    outline: none;
+    --tw-ring-color: rgba(255, 255, 255, 0.5);
+    --tw-ring-width: 2px;
+}
+
+/* Notification badge */
+.notification-badge {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background-color: #ef4444;
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 9999px;
+    height: 1.25rem;
+    width: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* User avatar */
+.user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ===== SIDEBAR COMPONENTS ===== */
+
+/* Sidebar transition */
+.sidebar-transition {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Navigation links */
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    color: #374151;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: #eef2ff;
+    color: #4f46e5;
+}
+
+.nav-link.active {
+    background-color: #eef2ff;
+    color: #4f46e5;
+}
+
+.nav-icon {
+    width: 1.25rem;
+    text-align: center;
+}
+
+/* ===== CARD COMPONENTS ===== */
+
+/* Card hover effects */
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+}
+
+/* Gradient cards */
+.gradient-card {
+    background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* Chart container */
+.chart-container {
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Glass effect */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
 /* ===== DASHBOARD COMPONENTS ===== */
 
 /* Dashboard Chart Container */

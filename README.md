@@ -2,6 +2,55 @@
 
 Un sistema completo de gestión e inventario diseñado específicamente para librerías, con una interfaz moderna y funcionalidades completas para el manejo de libros, reportes y configuración.
 
+## 🏗️ Estructura del Proyecto
+
+```
+📦 libreria-inventario/
+├── 📄 index.html                    # Página principal (limpia, sin CSS/JS inline)
+├── 📄 README.md                     # Documentación del proyecto
+├── 📁 assets/                       # Recursos organizados por tipo
+│   ├── 📁 css/                     # Estilos modulares
+│   │   ├── 📄 styles.css           # Estilos base y variables
+│   │   ├── 📄 components.css       # Componentes específicos
+│   │   ├── 📄 animations.css       # Animaciones y transiciones
+│   │   └── 📄 responsive.css       # Media queries y diseño adaptativo
+│   ├── 📁 images/                  # Recursos gráficos
+│   │   ├── 📁 icons/
+│   │   └── 📄 logo.png
+│   └── 📁 js/                      # JavaScript organizado por módulos
+│       ├── 📁 components/          # Componentes específicos
+│       │   └── 📄 dashboard.js     # Funcionalidad del dashboard
+│       ├── 📁 modules/             # Módulos principales
+│       │   ├── 📄 app-init.js      # Inicialización de la aplicación
+│       │   └── 📄 navigation.js    # Sistema de navegación
+│       ├── 📁 utils/               # Utilidades reutilizables
+│       │   └── 📄 helpers.js       # Funciones helper y utilidades
+│       └── 📄 main.js              # Funcionalidad principal
+└── 📁 .git/                       # Repositorio Git
+```
+
+## 🎯 Beneficios de la Nueva Estructura
+
+### ✅ **Modularidad**
+- Código organizado por funcionalidad y responsabilidad
+- Fácil localización y mantenimiento de componentes específicos
+- Separación clara entre estilos, lógica y utilidades
+
+### ✅ **Mantenibilidad**
+- HTML limpio sin CSS o JavaScript inline
+- Archivos especializados por función (dashboard, navegación, utilidades)
+- Estructura escalable para futuros desarrollos
+
+### ✅ **Performance**
+- Carga optimizada de recursos
+- Separación de utilidades para reutilización
+- Mejor gestión de dependencias
+
+### ✅ **Desarrollo**
+- Estructura clara para nuevos desarrolladores
+- Convenciones consistentes en toda la aplicación
+- Facilita el trabajo en equipo y versionado
+
 ## ✨ Características Principales
 
 ### 📊 Dashboard Interactivo

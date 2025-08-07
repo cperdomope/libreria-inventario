@@ -4,6 +4,34 @@
    Descripción: Animaciones y transiciones del sistema
    =============================================== */
 
+/* ===== ANIMACIONES PERSONALIZADAS ===== */
+
+/* Bounce animation slow */
+.animate-bounce-slow {
+    animation: bounce 2s infinite;
+}
+
+/* Pulse animation slow */
+.animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Slide in animation */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.6s ease-out;
+}
+
 /* ===== KEYFRAMES ===== */
 
 /* Fade in animation */
