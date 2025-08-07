@@ -251,11 +251,11 @@ const NavigationManager = {
       `${this.state.currentSection}-section`
     );
     if (currentSection) {
+      currentSection.classList.remove("active");
       currentSection.classList.add("fade-exit");
       setTimeout(() => {
-        currentSection.classList.add("hidden");
         currentSection.classList.remove("fade-exit");
-      }, 200);
+      }, 300);
     }
   },
 
@@ -265,8 +265,8 @@ const NavigationManager = {
   showSection(sectionName) {
     const section = document.getElementById(`${sectionName}-section`);
     if (section) {
-      // Remover clase hidden y agregar animación de entrada
-      section.classList.remove("hidden");
+      // Agregar clase active y animación de entrada
+      section.classList.add("active");
       section.classList.add("page-enter");
 
       // Limpiar clases de animación después de la transición

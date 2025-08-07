@@ -134,14 +134,14 @@ const AppNavigation = {
         
         // Ocultar todas las secciones
         this.contentSections.forEach(section => {
-            section.classList.add('hidden');
+            section.classList.remove('active');
             section.classList.remove('slide-in');
         });
         
         // Mostrar sección objetivo con animación
         const targetSection = document.getElementById(targetSectionId);
         if (targetSection) {
-            targetSection.classList.remove('hidden');
+            targetSection.classList.add('active');
             targetSection.classList.add('slide-in');
         } else {
             console.warn(`Sección ${targetSectionId} no encontrada`);
