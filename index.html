@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librería Digital - Sistema de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <!-- CSS Assets -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-card {
+            background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .chart-container {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .notification-badge {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <button id="sidebarToggle" class="lg:hidden text-white hover:text-gray-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+                            <i class="fas fa-book text-2xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold">Librería Digital</h1>
+                            <p class="text-sm opacity-90">Sistema de Inventario</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-4">
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" placeholder="Buscar libros..."
+                                class="pl-10 pr-4 py-2 rounded-lg bg-white bg-opacity-20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 w-64">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button class="relative text-white hover:text-gray-200 transition-colors">
+                                <i class="fas fa-bell text-xl"></i>
+                                <span class="notification-badge absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                                alt="Usuario" class="w-10 h-10 rounded-full border-2 border-white border-opacity-50">
+                            <div class="hidden md:block">
+                                <p class="font-medium">Carlos Ivan Perdomo</p>
+                                <p class="text-sm opacity-75">Administrador</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="sidebar-transition bg-white shadow-lg w-64 min-h-screen fixed lg:static lg:translate-x-0 -translate-x-full z-40">
+            <nav class="p-6">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" data-section="dashboard"
+                            class="nav-link flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200 bg-indigo-50 text-indigo-600">
+                            <i class="fas fa-chart-pie w-5"></i>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="inventory"
+                            class="nav-link flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <i class="fas fa-book w-5"></i>
+                            <span class="font-medium">Inventario</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="stock"
+                            class="nav-link flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <i class="fas fa-boxes w-5"></i>
+                            <span class="font-medium">Control de Stock</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="sales"
+                            class="nav-link flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <i class="fas fa-shopping-cart w-5"></i>
+                            <span class="font-medium">Ventas</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="reports"
+                            class="nav-link flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <i class="fas fa-chart-bar w-5"></i>
+                            <span class="font-medium">Reportes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="users"
+                            class="nav-link flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <i class="fas fa-users w-5"></i>
+                            <span class="font-medium">Usuarios</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="mt-8 pt-8 border-t border-gray-200">
+                    <a href="#"
+                        class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-red-50 hover:text-red-600 transition-all duration-200">
+                        <i class="fas fa-sign-out-alt w-5"></i>
+                        <span class="font-medium">Cerrar Sesión</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-0 ml-0">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section p-6">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Dashboard</h2>
+                    <p class="text-gray-600">Resumen general del sistema de inventario</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-blue-600 text-sm font-medium uppercase tracking-wide">Total Libros</p>
+                                <p class="text-3xl font-bold text-gray-900">2,547</p>
+                                <p class="text-green-600 text-sm flex items-center mt-1">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    +5.2% vs mes anterior
+                                </p>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-book text-blue-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-green-600 text-sm font-medium uppercase tracking-wide">Ventas Hoy</p>
+                                <p class="text-3xl font-bold text-gray-900">$1,235</p>
+                                <p class="text-green-600 text-sm flex items-center mt-1">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    +8.1% vs ayer
+                                </p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-yellow-600 text-sm font-medium uppercase tracking-wide">Stock Bajo</p>
+                                <p class="text-3xl font-bold text-gray-900">23</p>
+                                <p class="text-red-600 text-sm flex items-center mt-1">
+                                    <i class="fas fa-exclamation-triangle mr-1"></i>
+                                    Requiere atención
+                                </p>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-exclamation-triangle text-yellow-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-purple-600 text-sm font-medium uppercase tracking-wide">Clientes</p>
+                                <p class="text-3xl font-bold text-gray-900">1,127</p>
+                                <p class="text-green-600 text-sm flex items-center mt-1">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    +12 nuevos hoy
+                                </p>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-users text-purple-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Actividad Reciente</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg">
+                            <div class="bg-blue-500 p-2 rounded-full">
+                                <i class="fas fa-plus text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Nuevo libro agregado</p>
+                                <p class="text-gray-600 text-sm">Se agregó "Rayuela" al inventario</p>
+                            </div>
+                            <span class="text-gray-500 text-sm">Hace 5 min</span>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg">
+                            <div class="bg-green-500 p-2 rounded-full">
+                                <i class="fas fa-shopping-cart text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Venta realizada</p>
+                                <p class="text-gray-600 text-sm">3 libros vendidos por $87.50</p>
+                            </div>
+                            <span class="text-gray-500 text-sm">Hace 12 min</span>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-3 bg-yellow-50 rounded-lg">
+                            <div class="bg-yellow-500 p-2 rounded-full">
+                                <i class="fas fa-exclamation-triangle text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Stock bajo</p>
+                                <p class="text-gray-600 text-sm">"El Alquimista" tiene solo 3 unidades</p>
+                            </div>
+                            <span class="text-gray-500 text-sm">Hace 1 hora</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section id="inventory-section" class="content-section p-6 hidden">
+                <div class="mb-8">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-900 mb-2">Gestión de Inventario</h2>
+                            <p class="text-gray-600">Administra los libros de tu librería</p>
+                        </div>
+                        <button
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-colors">
+                            <i class="fas fa-plus"></i>
+                            <span>Agregar Libro</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inventory content would go here -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Lista de Libros</h3>
+                    <p class="text-gray-600">Contenido del inventario...</p>
+                </div>
+            </section>
+
+            <!-- Other sections would go here -->
+            <section id="stock-section" class="content-section p-6 hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Control de Stock</h2>
+                    <p class="text-gray-600">Gestiona entradas y salidas de inventario</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <p class="text-gray-600">Contenido del control de stock...</p>
+                </div>
+            </section>
+
+            <section id="sales-section" class="content-section p-6 hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Módulo de Ventas</h2>
+                    <p class="text-gray-600">Gestiona las ventas y facturación</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <p class="text-gray-600">Contenido del módulo de ventas...</p>
+                </div>
+            </section>
+
+            <section id="reports-section" class="content-section p-6 hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Reportes y Estadísticas</h2>
+                    <p class="text-gray-600">Análisis y reportes del negocio</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <p class="text-gray-600">Contenido de reportes...</p>
+                </div>
+            </section>
+
+            <section id="users-section" class="content-section p-6 hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Gestión de Usuarios</h2>
+                    <p class="text-gray-600">Administra usuarios y permisos del sistema</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <p class="text-gray-600">Contenido de usuarios...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-6 flex items-center space-x-3">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            <span class="text-gray-700">Cargando...</span>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Section navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Remove active class from all links
+                navLinks.forEach(l => {
+                    l.classList.remove('bg-indigo-50', 'text-indigo-600');
+                    l.classList.add('text-gray-700');
+                });
+
+                // Add active class to clicked link
+                link.classList.add('bg-indigo-50', 'text-indigo-600');
+                link.classList.remove('text-gray-700');
+
+                // Hide all sections
+                contentSections.forEach(section => {
+                    section.classList.add('hidden');
+                });
+
+                // Show target section
+                const targetSection = link.getAttribute('data-section') + '-section';
+                const section = document.getElementById(targetSection);
+                if (section) {
+                    section.classList.remove('hidden');
+                    section.classList.add('slide-in');
+                }
+
+                // Close mobile sidebar
+                if (window.innerWidth < 1024) {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                }
+            });
+        });
+
+        // Mobile sidebar toggle
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+                sidebarOverlay.classList.toggle('hidden');
+            });
+        }
+
+        // Close sidebar when clicking overlay
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            });
+        }
+
+        // Close sidebar on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            }
+        });
+
+        // Add some interactive animations
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Initialize with dashboard view
+        document.addEventListener('DOMContentLoaded', () => {
+            const dashboardLink = document.querySelector('[data-section="dashboard"]');
+            if (dashboardLink) {
+                dashboardLink.click();
+            }
+        });
+    </script>
+
+    <!-- JavaScript Assets -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/navigation.js"></script>
+</body>
+
+</html>
