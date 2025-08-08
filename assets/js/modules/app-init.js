@@ -8,6 +8,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Inicializando aplicación...');
     
+    // Inicializar sistema de autenticación PRIMERO
+    if (window.AuthSystem) {
+        const isAuthenticated = AuthSystem.init();
+        if (!isAuthenticated) {
+            return; // Si no está autenticado, se redirige al login
+        }
+    } else {
+        console.error('Sistema de autenticación no disponible');
+        window.location.href = 'login.html';
+        return;
+    }
+    
     // Inicializar navegación usando NavigationManager
     if (window.NavigationManager) {
         NavigationManager.init();

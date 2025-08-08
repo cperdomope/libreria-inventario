@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Form Data - Librería Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-8">
+    <div class="container mx-auto max-w-2xl px-4">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold mb-6">Test Envío de Formulario</h1>
+            
+            <form id="testForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nombre:</label>
+                    <input type="text" name="nombre" value="Juan Pérez Test" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email:</label>
+                    <input type="email" name="email" value="juan.test@test.com" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña:</label>
+                    <input type="password" name="password" value="test123" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Rol:</label>
+                    <select name="rol" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                        <option value="">Seleccionar</option>
+                        <option value="seller" selected>Vendedor</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Estado:</label>
+                    <select name="estado" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                        <option value="activo" selected>Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono:</label>
+                    <input type="tel" name="telefono" value="3001234567"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                    Enviar Datos de Prueba
+                </button>
+            </form>
+            
+            <div id="results" class="mt-6"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const userData = {};
+            
+            // Convertir FormData a objeto
+            for (let [key, value] of formData.entries()) {
+                userData[key] = value;
+            }
+            
+            console.log('📤 Datos a enviar:', userData);
+            
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="text-blue-600">Enviando datos...</div>';
+            
+            try {
+                const response = await fetch('api/users_simple.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                console.log('📡 Status:', response.status);
+                console.log('📡 Headers:', [...response.headers.entries()]);
+                
+                const responseText = await response.text();
+                console.log('📄 Raw Response:', responseText);
+                
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                    console.log('✅ Parsed Data:', data);
+                } catch (parseError) {
+                    console.error('❌ Parse Error:', parseError);
+                    results.innerHTML = `
+                        <div class="bg-red-50 p-4 rounded border-l-4 border-red-400">
+                            <h4 class="font-bold text-red-800">Error de Parsing JSON</h4>
+                            <p class="text-red-700">Error: ${parseError.message}</p>
+                            <details class="mt-2">
+                                <summary class="cursor-pointer">Ver respuesta cruda</summary>
+                                <pre class="bg-gray-100 p-2 mt-2 text-xs">${responseText}</pre>
+                            </details>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                if (data.success) {
+                    results.innerHTML = `
+                        <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
+                            <h4 class="font-bold text-green-800">✅ Usuario Creado Exitosamente</h4>
+                            <p class="text-green-700">ID: ${data.user_id}</p>
+                            <p class="text-green-700">Nombre: ${data.user.nombre}</p>
+                            <p class="text-green-700">Email: ${data.user.email}</p>
+                        </div>
+                    `;
+                } else {
+                    results.innerHTML = `
+                        <div class="bg-red-50 p-4 rounded border-l-4 border-red-400">
+                            <h4 class="font-bold text-red-800">❌ Error al Crear Usuario</h4>
+                            <p class="text-red-700">${data.message}</p>
+                            ${data.errors ? '<ul class="list-disc list-inside text-red-700">' + data.errors.map(e => '<li>' + e + '</li>').join('') + '</ul>' : ''}
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('❌ Network Error:', error);
+                results.innerHTML = `
+                    <div class="bg-red-50 p-4 rounded border-l-4 border-red-400">
+                        <h4 class="font-bold text-red-800">❌ Error de Red</h4>
+                        <p class="text-red-700">${error.message}</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

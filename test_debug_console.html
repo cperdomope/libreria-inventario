@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Console - Librería Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-8">
+    <div class="container mx-auto max-w-4xl px-4">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold mb-6">🔧 Debug Console - Sistema de Usuarios</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <button onclick="checkUserManager()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                    Verificar UserManager
+                </button>
+                <button onclick="testAPI()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+                    Probar API
+                </button>
+                <button onclick="goToUsers()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg">
+                    Ir a Sección Usuarios
+                </button>
+                <button onclick="simulateFormSubmit()" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg">
+                    Simular Envío Formulario
+                </button>
+                <button onclick="checkConsole()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+                    Ver Console Logs
+                </button>
+                <button onclick="clearConsole()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg">
+                    Limpiar Console
+                </button>
+            </div>
+            
+            <div id="results" class="bg-gray-900 text-green-400 p-4 rounded-lg" style="height: 400px; overflow-y: auto; font-family: monospace;">
+                <div class="text-yellow-400">🔧 Debug Console iniciado...</div>
+                <div class="text-blue-400">Presiona los botones para ejecutar tests</div>
+                <div class="text-gray-500">--------------------------------------------------</div>
+            </div>
+            
+            <div class="mt-4 p-4 bg-blue-50 rounded border">
+                <h3 class="font-semibold text-blue-800 mb-2">📋 Instrucciones:</h3>
+                <ol class="text-sm text-blue-700 space-y-1">
+                    <li>1. <strong>Verificar UserManager:</strong> Comprueba si el módulo está cargado</li>
+                    <li>2. <strong>Probar API:</strong> Hace una llamada GET al API de usuarios</li>
+                    <li>3. <strong>Ir a Usuarios:</strong> Navega a la sección de usuarios del dashboard</li>
+                    <li>4. <strong>Simular Formulario:</strong> Prueba el envío de datos</li>
+                    <li>5. <strong>Console Logs:</strong> Muestra todos los logs de la consola</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const colors = {
+                info: 'text-white',
+                success: 'text-green-400',
+                error: 'text-red-400',
+                warning: 'text-yellow-400',
+                debug: 'text-blue-400'
+            };
+            
+            const line = document.createElement('div');
+            line.className = colors[type] || 'text-white';
+            line.innerHTML = `<span class="text-gray-500">[${timestamp}]</span> ${message}`;
+            resultsDiv.appendChild(line);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+        
+        function checkUserManager() {
+            log('🔍 Verificando UserManager...', 'info');
+            
+            if (typeof UserManager !== 'undefined') {
+                log('✅ UserManager está disponible globalmente', 'success');
+                log(`📊 Estado: isInitialized = ${UserManager.isInitialized}`, 'info');
+                log(`📊 Estado: isLoading = ${UserManager.isLoading}`, 'info');
+                log(`📊 Usuarios cargados: ${UserManager.users.length}`, 'info');
+                
+                if (UserManager.newUserBtn) {
+                    log('✅ Botón "Nuevo Usuario" encontrado', 'success');
+                } else {
+                    log('⚠️ Botón "Nuevo Usuario" NO encontrado', 'warning');
+                }
+            } else {
+                log('❌ UserManager NO está disponible', 'error');
+                log('💡 Intentando inicializar manualmente...', 'warning');
+                
+                if (typeof initUserManager === 'function') {
+                    initUserManager();
+                    log('🚀 Inicialización manual ejecutada', 'success');
+                } else {
+                    log('❌ Función initUserManager no disponible', 'error');
+                }
+            }
+        }
+        
+        async function testAPI() {
+            log('🌐 Probando API de usuarios...', 'info');
+            
+            try {
+                const response = await fetch('api/users_simple.php');
+                log(`📡 Status: ${response.status} ${response.statusText}`, 'info');
+                
+                const text = await response.text();
+                
+                try {
+                    const data = JSON.parse(text);
+                    if (data.success) {
+                        log(`✅ API funcionando - ${data.users.length} usuarios encontrados`, 'success');
+                        log(`📊 Stats: Total=${data.stats.total}, Activos=${data.stats.activos}`, 'info');
+                    } else {
+                        log(`❌ API error: ${data.message}`, 'error');
+                    }
+                } catch (parseError) {
+                    log(`❌ JSON Parse Error: ${parseError.message}`, 'error');
+                    log(`📄 Raw response: ${text.substring(0, 100)}...`, 'debug');
+                }
+            } catch (error) {
+                log(`❌ Network Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function goToUsers() {
+            log('🔄 Navegando a sección de usuarios...', 'info');
+            window.location.href = 'index.html?section=users';
+        }
+        
+        async function simulateFormSubmit() {
+            log('📝 Simulando envío de formulario...', 'info');
+            
+            const testData = {
+                nombre: 'Usuario Test Debug',
+                email: `test${Date.now()}@debug.com`,
+                password: 'test123',
+                rol: 'seller',
+                estado: 'activo',
+                telefono: '3001234567'
+            };
+            
+            log('📤 Datos a enviar:', 'debug');
+            log(JSON.stringify(testData, null, 2), 'debug');
+            
+            try {
+                const response = await fetch('api/users_simple.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                log(`📡 Response Status: ${response.status}`, 'info');
+                
+                const responseText = await response.text();
+                log('📄 Raw Response:', 'debug');
+                log(responseText, 'debug');
+                
+                try {
+                    const result = JSON.parse(responseText);
+                    if (result.success) {
+                        log(`✅ Usuario creado exitosamente: ID=${result.user_id}`, 'success');
+                    } else {
+                        log(`❌ Error al crear usuario: ${result.message}`, 'error');
+                        if (result.errors) {
+                            result.errors.forEach(error => log(`   - ${error}`, 'error'));
+                        }
+                    }
+                } catch (parseError) {
+                    log(`❌ JSON Parse Error: ${parseError.message}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Network Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function checkConsole() {
+            log('📋 Revisando console logs...', 'info');
+            log('💡 Abre DevTools (F12) para ver logs detallados de:', 'warning');
+            log('   - UserManager inicialización', 'info');
+            log('   - SectionObserver cambios', 'info');
+            log('   - API calls y respuestas', 'info');
+            log('   - Errores de JavaScript', 'info');
+        }
+        
+        function clearConsole() {
+            resultsDiv.innerHTML = '';
+            console.clear();
+            log('🧹 Console limpiado', 'success');
+        }
+        
+        // Log inicial
+        log('🚀 Debug Console listo', 'success');
+        log('💡 Usa los botones para probar diferentes funcionalidades', 'info');
+    </script>
+</body>
+</html>
