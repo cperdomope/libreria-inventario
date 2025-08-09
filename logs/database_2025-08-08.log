@@ -130,3 +130,5 @@ Stack trace:
 #1 {main}
   thrown in C:\xampp\htdocs\libreria-inventario\api\users_simple.php on line 50
 [08-Aug-2025 05:14:03 Europe/Berlin] Error en executeUpdate: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'libreria_inventario.sesiones' doesn't exist
+[08-Aug-2025 05:16:56 Europe/Berlin] Error en executeUpdate: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'libreria_inventario.sesiones' doesn't exist
+[08-Aug-2025 05:19:28 Europe/Berlin] Error en executeUpdate: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'libreria_inventario.sesiones' doesn't exist
