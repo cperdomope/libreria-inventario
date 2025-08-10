@@ -1290,7 +1290,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-blue-600 text-sm font-medium uppercase tracking-wide">Total Usuarios</p>
-                                <p class="text-3xl font-bold text-gray-900">27</p>
+                                <p class="text-3xl font-bold text-gray-900" id="total-users-count">0</p>
                                 <p class="text-blue-600 text-sm mt-1">Activos en el sistema</p>
                             </div>
                             <div class="bg-blue-100 p-3 rounded-full">
@@ -1304,8 +1304,8 @@
                             <div>
                                 <p class="text-green-600 text-sm font-medium uppercase tracking-wide">Usuarios Activos
                                 </p>
-                                <p class="text-3xl font-bold text-gray-900">24</p>
-                                <p class="text-green-600 text-sm mt-1">En línea últimos 7 días</p>
+                                <p class="text-3xl font-bold text-gray-900" id="active-users-count">0</p>
+                                <p class="text-green-600 text-sm mt-1">Estado activo</p>
                             </div>
                             <div class="bg-green-100 p-3 rounded-full">
                                 <i class="fas fa-user-check text-green-600 text-xl"></i>
@@ -1318,7 +1318,7 @@
                             <div>
                                 <p class="text-yellow-600 text-sm font-medium uppercase tracking-wide">Administradores
                                 </p>
-                                <p class="text-3xl font-bold text-gray-900">3</p>
+                                <p class="text-3xl font-bold text-gray-900" id="admin-users-count">0</p>
                                 <p class="text-yellow-600 text-sm mt-1">Permisos completos</p>
                             </div>
                             <div class="bg-yellow-100 p-3 rounded-full">
@@ -1332,8 +1332,8 @@
                             <div>
                                 <p class="text-purple-600 text-sm font-medium uppercase tracking-wide">Nuevos Este Mes
                                 </p>
-                                <p class="text-3xl font-bold text-gray-900">5</p>
-                                <p class="text-purple-600 text-sm mt-1">Registros agosto</p>
+                                <p class="text-3xl font-bold text-gray-900" id="new-users-count">0</p>
+                                <p class="text-purple-600 text-sm mt-1">Registros este mes</p>
                             </div>
                             <div class="bg-purple-100 p-3 rounded-full">
                                 <i class="fas fa-user-plus text-purple-600 text-xl"></i>
@@ -1390,12 +1390,11 @@
                     <div class="p-6 border-b border-gray-200">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-gray-900">Lista de Usuarios</h3>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">27
-                                usuarios</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium" id="users-count-badge">0 usuarios</span>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="w-full">
+                        <table class="w-full" id="users-table">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th
@@ -1418,232 +1417,19 @@
                                         Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="h-10 w-10 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                                                <span class="text-indigo-600 font-semibold">CP</span>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">Carlos Ivan Perdomo</div>
-                                                <div class="text-sm text-gray-500">ID: USR001</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">carlos@libreria.com
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                            <i class="fas fa-crown mr-1"></i>Administrador
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <div>08 Ago 2025</div>
-                                        <div class="text-gray-500">10:30 AM</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                            <i class="fas fa-circle mr-1 text-xs"></i>Activo
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div class="flex justify-end gap-2">
-                                            <button class="text-indigo-600 hover:text-indigo-900"
-                                                title="Editar usuario">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="text-green-600 hover:text-green-900" title="Ver perfil">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-yellow-600 hover:text-yellow-900"
-                                                title="Restablecer contraseña">
-                                                <i class="fas fa-key"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                                                <span class="text-green-600 font-semibold">AG</span>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">Ana García</div>
-                                                <div class="text-sm text-gray-500">ID: USR002</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        ana.garcia@libreria.com</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                                            <i class="fas fa-shopping-cart mr-1"></i>Vendedor
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <div>08 Ago 2025</div>
-                                        <div class="text-gray-500">09:45 AM</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                            <i class="fas fa-circle mr-1 text-xs"></i>Activo
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div class="flex justify-end gap-2">
-                                            <button class="text-indigo-600 hover:text-indigo-900"
-                                                title="Editar usuario">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="text-green-600 hover:text-green-900" title="Ver perfil">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-yellow-600 hover:text-yellow-900"
-                                                title="Restablecer contraseña">
-                                                <i class="fas fa-key"></i>
-                                            </button>
-                                            <button class="text-red-600 hover:text-red-900" title="Suspender usuario">
-                                                <i class="fas fa-ban"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="h-10 w-10 bg-orange-100 rounded-full flex items-center justify-center mr-4">
-                                                <span class="text-orange-600 font-semibold">LS</span>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">Luis Sánchez</div>
-                                                <div class="text-sm text-gray-500">ID: USR003</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        luis.sanchez@libreria.com</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
-                                            <i class="fas fa-boxes mr-1"></i>Inventario
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <div>07 Ago 2025</div>
-                                        <div class="text-gray-500">15:20 PM</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                            <i class="fas fa-circle mr-1 text-xs"></i>Activo
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div class="flex justify-end gap-2">
-                                            <button class="text-indigo-600 hover:text-indigo-900"
-                                                title="Editar usuario">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="text-green-600 hover:text-green-900" title="Ver perfil">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-yellow-600 hover:text-yellow-900"
-                                                title="Restablecer contraseña">
-                                                <i class="fas fa-key"></i>
-                                            </button>
-                                            <button class="text-red-600 hover:text-red-900" title="Suspender usuario">
-                                                <i class="fas fa-ban"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center mr-4">
-                                                <span class="text-gray-600 font-semibold">MR</span>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">María Rodríguez</div>
-                                                <div class="text-sm text-gray-500">ID: USR004</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        maria.rodriguez@libreria.com</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                                            <i class="fas fa-eye mr-1"></i>Solo Lectura
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <div>05 Ago 2025</div>
-                                        <div class="text-gray-500">11:15 AM</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                            <i class="fas fa-pause mr-1 text-xs"></i>Inactivo
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div class="flex justify-end gap-2">
-                                            <button class="text-indigo-600 hover:text-indigo-900"
-                                                title="Editar usuario">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="text-green-600 hover:text-green-900" title="Activar usuario">
-                                                <i class="fas fa-play"></i>
-                                            </button>
-                                            <button class="text-yellow-600 hover:text-yellow-900"
-                                                title="Restablecer contraseña">
-                                                <i class="fas fa-key"></i>
-                                            </button>
-                                            <button class="text-red-600 hover:text-red-900" title="Eliminar usuario">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody class="bg-white divide-y divide-gray-200" id="users-table-body">
+                                <!-- Los usuarios se cargarán dinámicamente aquí -->
                             </tbody>
                         </table>
                     </div>
                     <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
                         <div class="flex items-center justify-between">
-                            <div class="text-sm text-gray-700">
-                                Mostrando <span class="font-medium">1</span> a <span class="font-medium">4</span> de
-                                <span class="font-medium">27</span> usuarios
+                            <div class="text-sm text-gray-700" id="users-pagination-info">
+                                Mostrando <span class="font-medium">1</span> a <span class="font-medium">5</span> de
+                                <span class="font-medium">0</span> usuarios
                             </div>
-                            <div class="flex gap-2">
-                                <button
-                                    class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100 disabled:opacity-50"
-                                    disabled>
-                                    Anterior
-                                </button>
-                                <button
-                                    class="px-3 py-1 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">
-                                    1
-                                </button>
-                                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100">
-                                    2
-                                </button>
-                                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100">
-                                    3
-                                </button>
-                                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100">
-                                    Siguiente
-                                </button>
+                            <div class="flex gap-2" id="users-pagination-buttons">
+                                <!-- Los botones se generarán dinámicamente -->
                             </div>
                         </div>
                     </div>

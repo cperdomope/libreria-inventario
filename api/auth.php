@@ -54,16 +54,15 @@ try {
         exit;
     }
     
-    // Verificar contraseña
+    // Verificar contraseña (modo desarrollo)
     $passwordValid = false;
     
-    // Primero intentar con password_verify (hash)
-    if (password_verify($password, $user['password'])) {
+    // Para desarrollo: comparar contraseñas directamente
+    if ($password === $user['password']) {
         $passwordValid = true;
     }
-    // Si falla, intentar comparación directa (para datos de prueba)
-    elseif ($password === 'admin123' || $password === 'vendedor123' || 
-            $password === 'inventario123' || $password === 'consulta123') {
+    // También intentar con hash por si las contraseñas están hasheadas
+    elseif (password_verify($password, $user['password'])) {
         $passwordValid = true;
     }
     

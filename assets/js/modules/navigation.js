@@ -484,6 +484,9 @@ const NavigationManager = {
       });
     }
 
+    // Cargar datos específicos de la sección
+    this.loadSectionData(newSection);
+
     // Ejecutar eventos personalizados
     document.dispatchEvent(
       new CustomEvent("navigationChange", {
@@ -493,6 +496,43 @@ const NavigationManager = {
 
     // Log para debugging
     console.log(`Navegación: ${previousSection} → ${newSection}`);
+  },
+
+  /**
+   * Cargar datos específicos de cada sección
+   */
+  loadSectionData(sectionName) {
+    switch (sectionName) {
+      case 'users':
+        // Cargar estadísticas de usuarios si el manager está disponible
+        if (window.UserManager && typeof window.UserManager.loadUsers === 'function') {
+          console.log('🔄 Cargando datos de usuarios...');
+          window.UserManager.loadUsers();
+        } else {
+          console.warn('⚠️ UserManager no disponible, intentando cargar después...');
+          // Intentar cargar después de un breve delay
+          setTimeout(() => {
+            if (window.UserManager && typeof window.UserManager.loadUsers === 'function') {
+              window.UserManager.loadUsers();
+            }
+          }, 500);
+        }
+        break;
+        
+      case 'dashboard':
+        // Aquí se pueden cargar estadísticas generales del dashboard
+        console.log('📊 Cargando estadísticas del dashboard...');
+        break;
+        
+      case 'inventory':
+        // Aquí se pueden cargar datos de inventario
+        console.log('📚 Cargando datos de inventario...');
+        break;
+        
+      default:
+        console.log(`📄 Sección ${sectionName} cargada`);
+        break;
+    }
   },
 
   /**

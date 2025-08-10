@@ -9,12 +9,12 @@
 // CONFIGURACIÓN DE CONEXIÓN A LA BASE DE DATOS
 // ================================================================
 
-// Configuración para XAMPP por defecto
+// Configuración para MySQL Server local (no Laragon)
 define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
 define('DB_NAME', 'libreria_inventario');
 define('DB_USER', 'root');
-define('DB_PASS', ''); // XAMPP por defecto no tiene contraseña para root
+define('DB_PASS', 'root'); // Contraseña root para MySQL Server local
 define('DB_CHARSET', 'utf8mb4');
 
 // Configuración adicional
@@ -268,6 +268,7 @@ configureDatabaseLogging();
 $isDevelopment = (isset($_SERVER['SERVER_NAME']) && 
                  ($_SERVER['SERVER_NAME'] === 'localhost' || 
                   $_SERVER['SERVER_NAME'] === '127.0.0.1' || 
+                  strpos($_SERVER['HTTP_HOST'], 'localhost') !== false ||
                   strpos($_SERVER['SERVER_NAME'], 'xampp') !== false));
 
 if ($isDevelopment) {

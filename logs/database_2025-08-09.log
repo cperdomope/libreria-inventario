@@ -1,0 +1,17 @@
+[09-Aug-2025 18:48:07 UTC] Error de conexión a la base de datos: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[09-Aug-2025 19:01:37 UTC] Error de conexión a la base de datos: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[09-Aug-2025 19:18:23 UTC] Error de conexión a la base de datos: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO)
+[09-Aug-2025 20:29:45 UTC] === DEBUG USUARIOS API ===
+[09-Aug-2025 20:29:45 UTC] Raw input received: {"nombre":"Test Final","email":"testfinal@libreria.com","password":"password123","rol":"seller","telefono":"3001234567","direccion":"Test direccion"}
+[09-Aug-2025 20:29:45 UTC] Content-Type: application/json
+[09-Aug-2025 20:29:45 UTC] Request method: POST
+[09-Aug-2025 20:29:45 UTC] JSON decoded data: {"nombre":"Test Final","email":"testfinal@libreria.com","password":"password123","rol":"seller","telefono":"3001234567","direccion":"Test direccion"}
+[09-Aug-2025 20:29:45 UTC] JSON last error: No error
+[09-Aug-2025 20:56:33 UTC] Usuarios API: Creando nuevo usuario
+[09-Aug-2025 21:30:27 UTC] Usuarios API: Creando nuevo usuario
+[09-Aug-2025 22:15:54 UTC] Usuarios API: Creando nuevo usuario
+[09-Aug-2025 22:22:12 UTC] Usuarios API: Creando nuevo usuario
+[09-Aug-2025 22:29:15 UTC] Usuarios API: Creando nuevo usuario
+[09-Aug-2025 22:43:59 UTC] Usuarios API: Creando nuevo usuario
+[09-Aug-2025 23:17:45 UTC] Usuarios API: Creando nuevo usuario
+[09-Aug-2025 23:44:02 UTC] Usuarios API: Creando nuevo usuario
