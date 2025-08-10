@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/animations.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/inventory.css">
+    <link rel="stylesheet" href="assets/css/text-fix.css">
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -29,7 +31,7 @@
                             <i class="fas fa-book text-2xl"></i>
                         </div>
                         <div>
-                            <h1 class="header-title">Librería Digital</h1>
+                            <h1 class="header-title">Librería Digital el Saber</h1>
                             <p class="header-subtitle">Sistema de Inventario</p>
                         </div>
                     </div>
@@ -250,7 +252,7 @@
                             <h2 class="text-3xl font-bold text-gray-900 mb-2">Gestión de Inventario</h2>
                             <p class="text-gray-600">Administra los libros de tu librería</p>
                         </div>
-                        <button
+                        <button id="add-book-btn"
                             class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-colors">
                             <i class="fas fa-plus"></i>
                             <span>Agregar Libro</span>
@@ -265,21 +267,17 @@
                             <div class="relative">
                                 <i
                                     class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                                <input type="text" placeholder="Buscar por título, autor, ISBN..."
+                                <input type="text" id="search-input" placeholder="Buscar por título, autor, ISBN..."
                                     class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:w-80">
                             </div>
-                            <select
+                            <select id="category-filter"
                                 class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                <option>Todas las categorías</option>
-                                <option>Ficción</option>
-                                <option>No ficción</option>
-                                <option>Ciencia</option>
-                                <option>Historia</option>
-                                <option>Arte</option>
+                                <option value="">Todas las categorías</option>
                             </select>
                         </div>
                         <div class="flex gap-2">
-                            <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg flex items-center gap-2">
+                            <button id="advanced-filters-btn"
+                                class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg flex items-center gap-2">
                                 <i class="fas fa-filter"></i>
                                 Filtros
                             </button>
@@ -297,7 +295,8 @@
                     <div class="p-6 border-b border-gray-200">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-gray-900">Inventario de Libros</h3>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">2,547
+                            <span id="books-count"
+                                class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">0
                                 libros</span>
                         </div>
                     </div>
@@ -328,7 +327,7 @@
                                         Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody id="books-table-body" class="bg-white divide-y divide-gray-200">
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
@@ -452,32 +451,351 @@
                         </table>
                     </div>
                     <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-                        <div class="flex items-center justify-between">
-                            <div class="text-sm text-gray-700">
-                                Mostrando <span class="font-medium">1</span> a <span class="font-medium">3</span> de
-                                <span class="font-medium">2,547</span> resultados
+                        <div id="pagination-container" class="flex items-center justify-between">
+                            <div id="pagination-info" class="text-sm text-gray-700">
+                                Mostrando <span id="showing-from">0</span> a <span id="showing-to">0</span> de
+                                <span id="total-records">0</span> resultados
                             </div>
-                            <div class="flex gap-2">
-                                <button
-                                    class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100 disabled:opacity-50"
-                                    disabled>
-                                    Anterior
-                                </button>
-                                <button
-                                    class="px-3 py-1 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">
-                                    1
-                                </button>
-                                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100">
-                                    2
-                                </button>
-                                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100">
-                                    Siguiente
-                                </button>
+                            <div id="pagination-buttons" class="flex gap-2">
+                                <!-- Pagination buttons will be generated by JavaScript -->
                             </div>
+                        </div>
+
+                        <!-- Loading state -->
+                        <div id="loading-state" class="hidden flex items-center justify-center py-8">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                            <span class="ml-2 text-gray-600">Cargando...</span>
+                        </div>
+
+                        <!-- Empty state -->
+                        <div id="empty-state" class="hidden text-center py-8">
+                            <i class="fas fa-book-open text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-600 text-lg mb-2">No se encontraron libros</p>
+                            <p class="text-gray-500 text-sm">Intenta ajustar los filtros de búsqueda</p>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <!-- Advanced Filters Modal -->
+            <div id="advanced-filters-modal"
+                class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Filtros Avanzados</h3>
+                        <button id="close-filters-modal" class="text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Estado -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                            <select id="estado-filter"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="">Todos los estados</option>
+                                <option value="disponible">Disponible</option>
+                                <option value="agotado">Agotado</option>
+                                <option value="descontinuado">Descontinuado</option>
+                                <option value="reservado">Reservado</option>
+                            </select>
+                        </div>
+
+                        <!-- Formato -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Formato</label>
+                            <select id="formato-filter"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="">Todos los formatos</option>
+                                <option value="tapa_dura">Tapa Dura</option>
+                                <option value="tapa_blanda">Tapa Blanda</option>
+                                <option value="bolsillo">Bolsillo</option>
+                                <option value="digital">Digital</option>
+                            </select>
+                        </div>
+
+                        <!-- Stock -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Stock</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="stock-bajo-filter"
+                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <span class="ml-2 text-sm text-gray-700">Solo stock bajo</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="agotado-filter"
+                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <span class="ml-2 text-sm text-gray-700">Solo agotados</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Destacados -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Especiales</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="destacado-filter"
+                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <span class="ml-2 text-sm text-gray-700">Solo destacados</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="nuevo-ingreso-filter"
+                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <span class="ml-2 text-sm text-gray-700">Nuevos ingresos</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Rango de precios -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Rango de Precios</label>
+                            <div class="flex gap-4">
+                                <div class="flex-1">
+                                    <input type="number" id="precio-min" placeholder="Precio mínimo"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div class="flex-1">
+                                    <input type="number" id="precio-max" placeholder="Precio máximo"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-3 mt-6">
+                        <button id="clear-filters"
+                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Limpiar Filtros
+                        </button>
+                        <button id="apply-filters"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                            Aplicar Filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Book Modal -->
+            <div id="add-book-modal"
+                class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                <div
+                    class="relative top-10 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 shadow-lg rounded-md bg-white max-h-screen overflow-y-auto">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">Agregar Nuevo Libro</h3>
+                        <button id="close-add-book-modal" class="text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+
+                    <form id="add-book-form">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Información Básica -->
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Información Básica</h4>
+                            </div>
+
+                            <!-- Título -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Título *</label>
+                                <input type="text" id="book-titulo" name="titulo" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Ingrese el título del libro">
+                            </div>
+
+                            <!-- Subtítulo -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Subtítulo</label>
+                                <input type="text" id="book-subtitulo" name="subtitulo"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Subtítulo (opcional)">
+                            </div>
+
+                            <!-- Autor -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Autor *</label>
+                                <input type="text" id="book-autor" name="autor" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Nombre del autor">
+                            </div>
+
+                            <!-- Editorial -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Editorial</label>
+                                <input type="text" id="book-editorial" name="editorial"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Editorial">
+                            </div>
+
+                            <!-- ISBN -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">ISBN</label>
+                                <input type="text" id="book-isbn" name="isbn"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="ISBN-10">
+                            </div>
+
+                            <!-- ISBN13 -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">ISBN-13</label>
+                                <input type="text" id="book-isbn13" name="isbn13"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="ISBN-13">
+                            </div>
+
+                            <!-- Año de publicación -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Año de Publicación</label>
+                                <input type="number" id="book-year" name="año_publicacion" min="1000" max="2030"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="2024">
+                            </div>
+
+                            <!-- Páginas -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Páginas</label>
+                                <input type="number" id="book-paginas" name="paginas" min="1"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="300">
+                            </div>
+
+                            <!-- Categoría -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Categoría *</label>
+                                <select id="book-categoria" name="categoria_id" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="">Seleccione una categoría</option>
+                                </select>
+                            </div>
+
+                            <!-- Formato -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Formato</label>
+                                <select id="book-formato" name="formato"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="tapa_blanda">Tapa Blanda</option>
+                                    <option value="tapa_dura">Tapa Dura</option>
+                                    <option value="bolsillo">Bolsillo</option>
+                                    <option value="digital">Digital</option>
+                                </select>
+                            </div>
+
+                            <!-- Información de Inventario -->
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2 mt-6">Información de
+                                    Inventario</h4>
+                            </div>
+
+                            <!-- Precio de Compra -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Precio de Compra *</label>
+                                <input type="number" id="book-precio-compra" name="precio_compra" step="0.01" min="0"
+                                    required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="25000.00">
+                            </div>
+
+                            <!-- Precio de Venta -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Precio de Venta *</label>
+                                <input type="number" id="book-precio-venta" name="precio_venta" step="0.01" min="0"
+                                    required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="35000.00">
+                            </div>
+
+                            <!-- Stock Actual -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Stock Actual *</label>
+                                <input type="number" id="book-stock-actual" name="stock_actual" min="0" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="10">
+                            </div>
+
+                            <!-- Stock Mínimo -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Stock Mínimo</label>
+                                <input type="number" id="book-stock-minimo" name="stock_minimo" min="0" value="5"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="5">
+                            </div>
+
+                            <!-- Ubicación -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ubicación</label>
+                                <input type="text" id="book-ubicacion" name="ubicacion"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="A1-F01">
+                            </div>
+
+                            <!-- Estado -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                                <select id="book-estado" name="estado"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="disponible">Disponible</option>
+                                    <option value="agotado">Agotado</option>
+                                    <option value="reservado">Reservado</option>
+                                </select>
+                            </div>
+
+                            <!-- Descripción -->
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
+                                <textarea id="book-descripcion" name="descripcion" rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Descripción del libro (opcional)"></textarea>
+                            </div>
+
+                            <!-- Checkboxes especiales -->
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2 mt-4">Opciones
+                                    Especiales</h4>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="book-destacado" name="destacado"
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">Libro destacado</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="book-nuevo-ingreso" name="nuevo_ingreso"
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">Nuevo ingreso</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Error messages -->
+                        <div id="add-book-errors" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800">Error al agregar el libro</h3>
+                                    <div id="error-list" class="mt-2 text-sm text-red-700"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="flex justify-end gap-3 mt-8 pt-6 border-t">
+                            <button type="button" id="cancel-add-book"
+                                class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                Cancelar
+                            </button>
+                            <button type="submit" id="save-book-btn"
+                                class="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50">
+                                <span id="save-btn-text">Guardar Libro</span>
+                                <i id="save-btn-spinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
             <!-- Other sections would go here -->
             <section id="stock-section" class="content-section p-6">
@@ -1347,8 +1665,7 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-900">Gestión de Usuarios</h3>
                         <div class="flex gap-2">
-                            <button
-                                id="new-user-btn"
+                            <button id="new-user-btn"
                                 class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                                 <i class="fas fa-user-plus"></i>
                                 Nuevo Usuario
@@ -1390,7 +1707,8 @@
                     <div class="p-6 border-b border-gray-200">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-gray-900">Lista de Usuarios</h3>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium" id="users-count-badge">0 usuarios</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                                id="users-count-badge">0 usuarios</span>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
@@ -1517,7 +1835,8 @@
                             <input type="password" id="user-password" name="password" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                 placeholder="Mínimo 6 caracteres" minlength="6">
-                            <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <button type="button" id="toggle-password"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -1601,7 +1920,7 @@
 
                 <!-- Botones -->
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                    <button type="button" id="cancel-btn" 
+                    <button type="button" id="cancel-btn"
                         class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
                         <i class="fas fa-times mr-2"></i>
                         Cancelar
@@ -1610,12 +1929,16 @@
                         class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium">
                         <i class="fas fa-save mr-2"></i>
                         <span id="save-btn-text">Crear Usuario</span>
-                        <div id="save-spinner" class="hidden ml-2 animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        <div id="save-spinner"
+                            class="hidden ml-2 animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-4 right-4 space-y-2 z-50"></div>
 
     <!-- JavaScript Assets -->
     <script src="assets/js/utils/helpers.js"></script>
@@ -1625,6 +1948,8 @@
     <script src="assets/js/components/dashboard.js"></script>
     <script src="assets/js/modules/section-observer.js"></script>
     <script src="assets/js/modules/user-management.js"></script>
+    <script src="assets/js/modules/inventory-manager.js"></script>
+    <script src="assets/js/inventory-init.js"></script>
     <script src="assets/js/modules/app-init.js"></script>
 </body>
 

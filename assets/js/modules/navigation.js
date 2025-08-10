@@ -525,8 +525,12 @@ const NavigationManager = {
         break;
         
       case 'inventory':
-        // Aquí se pueden cargar datos de inventario
+        // Cargar datos de inventario si el manager está disponible
         console.log('📚 Cargando datos de inventario...');
+        if (window.InventoryManager && typeof window.InventoryManager.loadBooks === 'function') {
+          console.log('🔄 Recargando datos de inventario...');
+          window.InventoryManager.loadBooks();
+        }
         break;
         
       default:
@@ -609,7 +613,31 @@ const DashboardComponent = {
 const InventoryComponent = {
   async load() {
     console.log("Cargando Inventario...");
-    // Implementar carga de datos del inventario
+    
+    // Inicializar InventoryManager si está disponible
+    if (window.InventoryManager && typeof window.InventoryManager.init === 'function') {
+      try {
+        await window.InventoryManager.init();
+        console.log("✅ InventoryManager inicializado correctamente");
+      } catch (error) {
+        console.error("❌ Error inicializando InventoryManager:", error);
+      }
+    } else {
+      console.warn("⚠️ InventoryManager no disponible, intentando cargar después...");
+      // Intentar cargar después de un breve delay para permitir que se carguen todos los scripts
+      setTimeout(async () => {
+        if (window.InventoryManager && typeof window.InventoryManager.init === 'function') {
+          try {
+            await window.InventoryManager.init();
+            console.log("✅ InventoryManager inicializado correctamente (intento retrasado)");
+          } catch (error) {
+            console.error("❌ Error inicializando InventoryManager (intento retrasado):", error);
+          }
+        } else {
+          console.error("❌ InventoryManager no está disponible después del delay");
+        }
+      }, 500);
+    }
   },
 };
 

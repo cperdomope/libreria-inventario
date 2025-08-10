@@ -1,0 +1,232 @@
+/**
+ * CORRECCIÓN DE TEXTO - Librería Digital
+ * Archivo: assets/css/text-fix.css  
+ * Descripción: Correcciones específicas para visibilidad de texto
+ */
+
+/* Forzar colores de texto visibles en todos los inputs y selects */
+* input,
+* select,
+* textarea {
+    color: #1f2937 !important;
+    background-color: #ffffff !important;
+}
+
+/* Tailwind override específico */
+.text-gray-400,
+.text-gray-500 {
+    color: #6b7280 !important;
+}
+
+/* Inputs específicos con clases Tailwind */
+.border-gray-300 {
+    border-color: #d1d5db !important;
+}
+
+.focus\:ring-indigo-500:focus {
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+.focus\:border-indigo-500:focus {
+    border-color: #6366f1 !important;
+}
+
+/* Placeholders más visibles */
+.placeholder-gray-400::placeholder {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+}
+
+/* Select options más visibles */
+select option {
+    color: #1f2937 !important;
+    background-color: #ffffff !important;
+    font-weight: normal;
+}
+
+/* Campos con padding y altura específica */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+select,
+textarea {
+    min-height: 40px;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #1f2937 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 6px;
+}
+
+/* Estados focus más claros */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    background-color: #ffffff !important;
+    color: #111827 !important;
+}
+
+/* Text areas específicamente */
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Labels más visibles y consistentes */
+label {
+    display: block;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #374151 !important;
+    margin-bottom: 4px;
+}
+
+/* Botones más consistentes */
+button {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Correcciones específicas para elementos del inventario */
+#inventory-section input,
+#inventory-section select,
+#inventory-section textarea {
+    color: #1f2937 !important;
+    background: #ffffff !important;
+}
+
+/* Modal específico */
+[id*="modal"] input,
+[id*="modal"] select,
+[id*="modal"] textarea {
+    color: #1f2937 !important;
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+}
+
+/* Checkboxes y radio buttons */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    color: #6366f1;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+    background-color: #6366f1;
+    border-color: #6366f1;
+}
+
+/* Estados de error más visibles */
+.border-red-300 {
+    border-color: #fca5a5 !important;
+}
+
+.text-red-600 {
+    color: #dc2626 !important;
+}
+
+/* Estados de éxito más visibles */
+.border-green-300 {
+    border-color: #86efac !important;
+}
+
+.text-green-600 {
+    color: #16a34a !important;
+}
+
+/* Corrección específica para el botón "Filtros" */
+#advanced-filters-btn {
+    background-color: #f3f4f6 !important; /* bg-gray-100 */
+    color: #374151 !important; /* Gris oscuro para el texto */
+    border: 1px solid #d1d5db !important;
+}
+
+#advanced-filters-btn:hover {
+    background-color: #e5e7eb !important; /* bg-gray-200 */
+    color: #111827 !important; /* Negro al hover */
+}
+
+/* Corrección para todos los botones con fondo gris */
+.bg-gray-100,
+button.bg-gray-100 {
+    background-color: #f3f4f6 !important;
+    color: #374151 !important;
+}
+
+.bg-gray-100:hover,
+button.bg-gray-100:hover {
+    background-color: #e5e7eb !important;
+    color: #111827 !important;
+}
+
+/* Corrección para botones con hover gris */
+.hover\:bg-gray-200:hover {
+    background-color: #e5e7eb !important;
+    color: #111827 !important;
+}
+
+/* Asegurar que el ícono también sea visible */
+#advanced-filters-btn i {
+    color: #374151 !important;
+}
+
+#advanced-filters-btn:hover i {
+    color: #111827 !important;
+}
+
+/* Corrección para otros botones similares */
+button[class*="bg-gray"] {
+    color: #374151 !important;
+}
+
+button[class*="bg-gray"]:hover {
+    color: #111827 !important;
+}
+
+/* Corrección específica para botones del modal */
+#clear-filters {
+    color: #374151 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+}
+
+#clear-filters:hover {
+    background-color: #f9fafb !important;
+    color: #111827 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    input, select, textarea, button {
+        min-height: 44px; /* Mejor para touch en móviles */
+        font-size: 16px !important; /* Evitar zoom automático en iOS */
+    }
+    
+    label {
+        font-size: 15px !important;
+    }
+}
