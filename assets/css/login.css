@@ -24,7 +24,7 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(-10px);
     }
     to {
         opacity: 1;
@@ -55,6 +55,29 @@
     }
 }
 
+@keyframes gradientShift {
+    0% { 
+        background-position: 0% 50%; 
+    }
+    50% { 
+        background-position: 100% 50%; 
+    }
+    100% { 
+        background-position: 0% 50%; 
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
 /* ===== UTILITY CLASSES ===== */
 
 .animate-blob {
@@ -79,6 +102,12 @@
 
 .shake {
     animation: shake 0.5s ease-in-out;
+}
+
+.bg-gradient-animated {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
 }
 
 /* ===== LOGIN FORM STYLES ===== */
@@ -138,6 +167,21 @@
     transform: none !important;
 }
 
+.login-button:disabled:hover {
+    box-shadow: none;
+}
+
+/* ===== LOGIN CARD EFFECTS ===== */
+
+.login-card {
+    transition: all 0.3s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
 /* ===== GLASS MORPHISM EFFECTS ===== */
 
 .glass {
@@ -192,6 +236,11 @@
         font-size: 16px; /* Prevent zoom on iOS */
     }
     
+    .login-input:focus {
+        transform: none;
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+    }
+    
     .glass-card {
         margin: 16px;
         padding: 24px;
@@ -201,30 +250,89 @@
         min-width: 280px;
         margin: 0 16px;
     }
+    
+    .error-message, 
+    .success-message, 
+    .warning-message,
+    .blocked-message {
+        font-size: 0.75rem;
+        padding: 0.75rem;
+    }
 }
 
-/* ===== DARK MODE SUPPORT (for future implementation) ===== */
+/* ===== DARK MODE DISABLED - FORCING LIGHT MODE FOR VISIBILITY ===== */
 
-@media (prefers-color-scheme: dark) {
-    .login-input {
-        background: rgba(17, 24, 39, 0.8);
-        color: white;
-        border-color: rgba(75, 85, 99, 0.5);
-    }
-    
-    .login-input:focus {
-        background: rgba(17, 24, 39, 0.9);
-        border-color: rgb(99, 102, 241);
-    }
-    
-    .login-input::placeholder {
-        color: rgba(156, 163, 175, 0.8);
-    }
-    
-    .glass-card {
-        background: rgba(17, 24, 39, 0.8);
-        border: 1px solid rgba(75, 85, 99, 0.2);
-    }
+/* Forzar modo claro siempre para máxima visibilidad */
+.login-input {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #1f2937 !important;
+    border-color: #d1d5db !important;
+}
+
+.login-input:focus {
+    background: rgba(255, 255, 255, 1) !important;
+    color: #111827 !important;
+    border-color: rgb(99, 102, 241) !important;
+}
+
+.login-input::placeholder {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+}
+
+/* Corrección específica para inputs en el formulario de login */
+#loginForm input,
+#loginForm input[type="email"],
+#loginForm input[type="password"] {
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
+    border: 1px solid #d1d5db !important;
+    transition: all 0.2s ease !important;
+}
+
+#loginForm input:focus,
+#loginForm input[type="email"]:focus,
+#loginForm input[type="password"]:focus {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    outline: none !important;
+}
+
+#loginForm input::placeholder {
+    color: #9ca3af !important;
+    opacity: 0.7 !important;
+}
+
+/* Botón de mostrar/ocultar contraseña */
+#togglePassword {
+    background: none !important;
+    border: none !important;
+    padding: 0.5rem !important;
+    cursor: pointer !important;
+    color: #6b7280 !important;
+    transition: color 0.2s ease !important;
+}
+
+#togglePassword:hover {
+    color: #374151 !important;
+}
+
+#togglePassword:focus {
+    outline: none !important;
+    color: #6366f1 !important;
+}
+
+#togglePassword i {
+    font-size: 1rem !important;
+    color: inherit !important;
+}
+
+/* Asegurar que el botón sea visible y clickeable */
+#togglePassword {
+    z-index: 10 !important;
+    position: relative !important;
 }
 
 /* ===== LOADING STATES ===== */
@@ -268,22 +376,93 @@
     box-shadow: 0 0 0 1px #10b981;
 }
 
-.error-message {
-    color: #ef4444;
+/* ===== ENHANCED MESSAGE STYLES ===== */
+
+.error-message, 
+.success-message, 
+.warning-message,
+.blocked-message {
+    border-radius: 0.75rem;
+    padding: 1rem;
+    font-family: sans-serif;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+    font-weight: 500;
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+    opacity: 1;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.error-message {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    color: #991b1b;
+    border: 1px solid #fecaca;
 }
 
 .success-message {
-    color: #10b981;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-    display: flex;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.warning-message {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.blocked-message {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    color: #991b1b;
+    border: 2px solid #ef4444;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+/* ===== MESSAGE INTERACTION STYLES ===== */
+
+.message-persistent {
+    position: sticky;
+    top: 1rem;
+    z-index: 50;
+}
+
+.message-dismissible {
+    cursor: pointer;
+}
+
+.message-dismissible:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.message-icon {
+    display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+/* ===== SECURITY CONTROL STYLES ===== */
+
+.attempts-warning {
+    animation: pulse 1s infinite;
+}
+
+.lockout-active .login-input {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.lockout-timer {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 2px solid #ef4444;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    animation: pulse 2s infinite;
 }
 
 /* ===== ACCESSIBILITY IMPROVEMENTS ===== */

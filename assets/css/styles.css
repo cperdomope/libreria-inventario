@@ -48,6 +48,11 @@
   --font-family-primary: "Inter", sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
+
+  /* Dashboard específico */
+  --dashboard-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --dashboard-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
@@ -619,4 +624,99 @@ body {
 }
 .bg-danger {
   background-color: var(--error-500);
+}
+
+/* ===============================================
+   DASHBOARD SPECIFIC STYLES
+   =============================================== */
+
+/* KPI Cards Enhancement */
+.card-hover {
+  transition: all 0.3s ease;
+  box-shadow: var(--dashboard-card-shadow);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--dashboard-card-hover);
+}
+
+/* Chart containers */
+.chart-container {
+  position: relative;
+  height: 320px;
+  padding: 1rem;
+}
+
+/* Activity items animation */
+.activity-item {
+  transition: all 0.2s ease;
+}
+
+.activity-item:hover {
+  transform: translateX(4px);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Critical stock alerts */
+.stock-alert-critical {
+  animation: pulse-red 2s infinite;
+}
+
+.stock-alert-warning {
+  animation: pulse-yellow 2s infinite;
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+}
+
+@keyframes pulse-yellow {
+  0%, 100% {
+    background-color: rgba(245, 158, 11, 0.1);
+  }
+  50% {
+    background-color: rgba(245, 158, 11, 0.2);
+  }
+}
+
+/* Loading states for charts */
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+}
+
+.chart-loading::after {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Dashboard responsive improvements */
+@media (max-width: 768px) {
+  .grid-cols-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .lg\:col-span-2 {
+    grid-column: span 1;
+  }
 }

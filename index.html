@@ -1,31 +1,83 @@
+<!--
+    LIBRERÍA DIGITAL - SISTEMA DE INVENTARIO
+    Archivo: index.html
+    Descripción: Página principal del sistema de inventario de la librería
+    
+    ESTRUCTURA GENERAL:
+    - Header con navegación y información de usuario
+    - Sidebar con menú de navegación (responsive)
+    - Área principal con secciones dinámicas:
+      * Dashboard: Estadísticas y resumen general
+      * Inventario: Gestión completa de libros (CRUD)
+      * Stock: Control de inventario y alertas
+      * Ventas: Sistema de facturación y ventas
+      * Usuarios: Gestión de usuarios del sistema
+      * Reportes: Informes y estadísticas detalladas
+    - Modales para formularios y acciones
+    - Sistema de notificaciones toast
+    
+    TECNOLOGÍAS UTILIZADAS:
+    - HTML5 semántico
+    - Tailwind CSS (via CDN)
+    - Font Awesome 6.4.0 (iconos)
+    - Chart.js (gráficos)
+    - JavaScript vanilla (modular)
+    
+    COMPATIBILIDAD:
+    - Responsive design (móvil, tablet, desktop)
+    - Navegadores modernos (Chrome 80+, Firefox 75+, Safari 13+)
+    
+    SEGURIDAD:
+    - Control de acceso basado en roles
+    - Validación de permisos en frontend y backend
+    - Escapado de HTML para prevenir XSS
+-->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <!-- Configuración básica -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Librería Digital - Sistema de Inventario</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <!-- Librerías externas via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Framework CSS utilitario -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script> <!-- Iconos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Gráficos para dashboard -->
 
-    <!-- CSS Assets -->
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <link rel="stylesheet" href="assets/css/inventory.css">
-    <link rel="stylesheet" href="assets/css/text-fix.css">
+    <!-- Hojas de estilo personalizadas (orden de carga importante) -->
+    <link rel="stylesheet" href="assets/css/styles.css">        <!-- Estilos base y variables CSS -->
+    <link rel="stylesheet" href="assets/css/components.css">   <!-- Componentes reutilizables -->
+    <link rel="stylesheet" href="assets/css/animations.css">   <!-- Animaciones y transiciones -->
+    <link rel="stylesheet" href="assets/css/responsive.css">  <!-- Media queries responsive -->
+    <link rel="stylesheet" href="assets/css/inventory.css">    <!-- Estilos específicos inventario -->
+    <link rel="stylesheet" href="assets/css/text-fix.css">     <!-- Correcciones visibilidad texto -->
 </head>
 
+<!-- 
+    ESTRUCTURA DEL BODY:
+    1. Header fijo: Logo, búsqueda, notificaciones y usuario
+    2. Layout flex: Sidebar + Contenido principal
+    3. Sidebar: Navegación entre secciones (responsive)
+    4. Main: Área de contenido dinámico por secciones
+    5. Modales: Formularios y ventanas emergentes
+    6. Toast container: Notificaciones del sistema
+    7. Scripts: JavaScript modular al final
+-->
 <body class="bg-gray-50 min-h-screen">
-    <!-- Header -->
+    
+    <!-- HEADER: Barra superior fija con navegación principal -->
     <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
+                <!-- Lado izquierdo: Logo y título -->
                 <div class="flex items-center space-x-4">
+                    <!-- Botón para abrir/cerrar sidebar en móvil -->
                     <button id="sidebarToggle" class="lg:hidden text-white hover:text-gray-200">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
+                    <!-- Logo y título de la aplicación -->
                     <div class="flex items-center space-x-3">
                         <div class="header-logo">
                             <i class="fas fa-book text-2xl"></i>
@@ -37,30 +89,39 @@
                     </div>
                 </div>
 
+                <!-- Lado derecho: Búsqueda, notificaciones y usuario -->
                 <div class="flex items-center space-x-6">
+                    <!-- Barra de búsqueda (oculta en móvil) -->
                     <div class="hidden md:flex items-center space-x-4">
                         <div class="relative">
-                            <i
-                                class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                             <input type="text" placeholder="Buscar libros..." class="search-input">
                         </div>
                     </div>
 
                     <div class="flex items-center space-x-4">
+                        <!-- Botón de notificaciones -->
                         <div class="relative">
                             <button class="relative text-white hover:text-gray-200 transition-colors">
                                 <i class="fas fa-bell text-xl"></i>
+                                <!-- Badge de notificaciones (se actualiza dinámicamente) -->
                                 <span class="notification-badge">3</span>
                             </button>
                         </div>
 
+                        <!-- Información del usuario actual -->
                         <div class="flex items-center space-x-3 user-info">
                             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
                                 alt="Usuario" class="user-avatar">
                             <div class="hidden md:block">
-                                <p class="font-medium">Carlos Ivan Perdomo</p>
-                                <p class="text-sm opacity-75">Administrador</p>
+                                <!-- Datos del usuario (se cargan dinámicamente) -->
+                                <p class="font-medium" data-user-name>Cargando...</p>
+                                <p class="text-sm opacity-75" data-user-role>...</p>
                             </div>
+                            <!-- Botón de cerrar sesión -->
+                            <button data-logout-btn class="ml-2 text-white hover:text-gray-200 transition-colors" title="Cerrar sesión">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -68,11 +129,20 @@
         </div>
     </header>
 
+    <!-- LAYOUT PRINCIPAL: Sidebar + Contenido -->
     <div class="flex">
-        <!-- Sidebar -->
+        
+        <!-- SIDEBAR: Menú de navegación lateral -->
+        <!-- 
+            COMPORTAMIENTO RESPONSIVE:
+            - Desktop: Fijo y siempre visible
+            - Tablet/Móvil: Overlay que se oculta/muestra con sidebarToggle
+            - Transiciones suaves con sidebar-transition class
+        -->
         <aside id="sidebar"
             class="sidebar-transition bg-white shadow-lg w-64 min-h-screen fixed lg:static lg:translate-x-0 -translate-x-full z-40">
             <nav class="p-6">
+                <!-- Menú de navegación: cada item controla una sección -->
                 <ul class="space-y-2">
                     <li>
                         <a href="#" data-section="dashboard"
@@ -137,17 +207,14 @@
                     <p class="text-gray-600">Resumen general del sistema de inventario</p>
                 </div>
 
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
                     <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-blue-600 text-sm font-medium uppercase tracking-wide">Total Libros</p>
-                                <p class="text-3xl font-bold text-gray-900">2,547</p>
-                                <p class="text-green-600 text-sm flex items-center mt-1">
-                                    <i class="fas fa-arrow-up mr-1"></i>
-                                    +5.2% vs mes anterior
-                                </p>
+                                <p id="total-books" class="text-3xl font-bold text-gray-900">2,547</p>
+                                <p class="text-gray-500 text-sm mt-1">En inventario</p>
                             </div>
                             <div class="bg-blue-100 p-3 rounded-full">
                                 <i class="fas fa-book text-blue-600 text-xl"></i>
@@ -159,14 +226,11 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-green-600 text-sm font-medium uppercase tracking-wide">Ventas Hoy</p>
-                                <p class="text-3xl font-bold text-gray-900">$1,235</p>
-                                <p class="text-green-600 text-sm flex items-center mt-1">
-                                    <i class="fas fa-arrow-up mr-1"></i>
-                                    +8.1% vs ayer
-                                </p>
+                                <p id="sales-today" class="text-3xl font-bold text-gray-900">8</p>
+                                <p class="text-gray-500 text-sm mt-1">Transacciones</p>
                             </div>
                             <div class="bg-green-100 p-3 rounded-full">
-                                <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+                                <i class="fas fa-shopping-cart text-green-600 text-xl"></i>
                             </div>
                         </div>
                     </div>
@@ -175,8 +239,8 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-yellow-600 text-sm font-medium uppercase tracking-wide">Stock Bajo</p>
-                                <p class="text-3xl font-bold text-gray-900">23</p>
-                                <p class="text-red-600 text-sm flex items-center mt-1">
+                                <p id="low-stock" class="text-3xl font-bold text-gray-900">3</p>
+                                <p class="text-red-500 text-sm mt-1">
                                     <i class="fas fa-exclamation-triangle mr-1"></i>
                                     Requiere atención
                                 </p>
@@ -191,54 +255,106 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-purple-600 text-sm font-medium uppercase tracking-wide">Clientes</p>
-                                <p class="text-3xl font-bold text-gray-900">1,127</p>
-                                <p class="text-green-600 text-sm flex items-center mt-1">
-                                    <i class="fas fa-arrow-up mr-1"></i>
-                                    +12 nuevos hoy
-                                </p>
+                                <p id="total-clients" class="text-3xl font-bold text-gray-900">127</p>
+                                <p class="text-gray-500 text-sm mt-1">Registrados</p>
                             </div>
                             <div class="bg-purple-100 p-3 rounded-full">
                                 <i class="fas fa-users text-purple-600 text-xl"></i>
                             </div>
                         </div>
                     </div>
+
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-indigo-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-indigo-600 text-sm font-medium uppercase tracking-wide">Ingresos Hoy</p>
+                                <p id="revenue-today" class="text-3xl font-bold text-gray-900">$342,500</p>
+                                <p class="text-green-600 text-sm mt-1">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    +15.3% vs ayer
+                                </p>
+                            </div>
+                            <div class="bg-indigo-100 p-3 rounded-full">
+                                <i class="fas fa-dollar-sign text-indigo-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Recent Activity -->
-                <div class="bg-white rounded-xl shadow-md p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Actividad Reciente</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg">
-                            <div class="bg-blue-500 p-2 rounded-full">
-                                <i class="fas fa-plus text-white text-sm"></i>
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Sales by Category Chart -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-chart-bar mr-2 text-blue-600"></i>
+                            Ventas por Categoría
+                        </h3>
+                        <div class="h-80">
+                            <canvas id="salesByCategoryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Sales Trend Chart -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-chart-line mr-2 text-green-600"></i>
+                            Tendencia de Ventas (7 días)
+                        </h3>
+                        <div class="h-80">
+                            <canvas id="salesTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Recent Activity -->
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-history mr-2 text-gray-600"></i>
+                            Actividad Reciente
+                        </h3>
+                        <div id="recent-activity" class="space-y-4 max-h-96 overflow-y-auto">
+                            <!-- Activity items will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Side Panel -->
+                    <div class="space-y-6">
+                        <!-- Critical Stock Alerts -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <i class="fas fa-exclamation-circle mr-2 text-red-600"></i>
+                                Alertas de Stock Crítico
+                            </h3>
+                            <div id="critical-stock" class="space-y-3">
+                                <!-- Critical stock items will be loaded here -->
                             </div>
-                            <div class="flex-1">
-                                <p class="font-medium text-gray-900">Nuevo libro agregado</p>
-                                <p class="text-gray-600 text-sm">Se agregó "Rayuela" al inventario</p>
-                            </div>
-                            <span class="text-gray-500 text-sm">Hace 5 min</span>
                         </div>
 
-                        <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg">
-                            <div class="bg-green-500 p-2 rounded-full">
-                                <i class="fas fa-shopping-cart text-white text-sm"></i>
+                        <!-- Customer Summary -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <i class="fas fa-user-friends mr-2 text-purple-600"></i>
+                                Resumen de Clientes
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span class="text-gray-600 text-sm">Nuevos hoy</span>
+                                    <span id="new-clients-today" class="font-semibold text-gray-900">4</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span class="text-gray-600 text-sm">Nuevos esta semana</span>
+                                    <span id="new-clients-week" class="font-semibold text-gray-900">18</span>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="text-sm text-gray-600 mb-2">Cliente con más compras:</p>
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <p id="top-client-name" class="font-medium text-gray-900">María José Hernández</p>
+                                        <p id="top-client-purchases" class="text-sm text-gray-600">24 compras este mes</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-medium text-gray-900">Venta realizada</p>
-                                <p class="text-gray-600 text-sm">3 libros vendidos por $87.50</p>
-                            </div>
-                            <span class="text-gray-500 text-sm">Hace 12 min</span>
-                        </div>
-
-                        <div class="flex items-center space-x-4 p-3 bg-yellow-50 rounded-lg">
-                            <div class="bg-yellow-500 p-2 rounded-full">
-                                <i class="fas fa-exclamation-triangle text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-medium text-gray-900">Stock bajo</p>
-                                <p class="text-gray-600 text-sm">"El Alquimista" tiene solo 3 unidades</p>
-                            </div>
-                            <span class="text-gray-500 text-sm">Hace 1 hora</span>
                         </div>
                     </div>
                 </div>
@@ -971,8 +1087,9 @@
                 <div class="bg-white rounded-xl shadow-md p-6 mb-6">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-900">Nueva Venta</h3>
-                        <button
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                        <button id="create-sale-btn"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+                            onclick="openSaleModalDirect()">
                             <i class="fas fa-plus"></i>
                             Crear Venta
                         </button>
@@ -1080,7 +1197,7 @@
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="w-full">
+                        <table id="sales-table" class="w-full">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Factura
@@ -1093,15 +1210,15 @@
                                     </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pago
-                                    </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pago
                                     </th>
                                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
                                         Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody id="sales-table-body" class="divide-y divide-gray-200">
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">#V-2025-001</div>
@@ -1256,6 +1373,13 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    
+                    <!-- Paginación de ventas -->
+                    <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
+                        <div id="sales-pagination" class="flex items-center justify-between">
+                            <!-- La paginación se cargará dinámicamente -->
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1665,10 +1789,10 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-900">Gestión de Usuarios</h3>
                         <div class="flex gap-2">
-                            <button id="new-user-btn"
+                            <button id="add-user-btn"
                                 class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                                 <i class="fas fa-user-plus"></i>
-                                Nuevo Usuario
+                                Agregar Usuario
                             </button>
                             <button
                                 class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2">
@@ -1681,23 +1805,23 @@
                         <div class="relative flex-1">
                             <i
                                 class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" placeholder="Buscar usuarios..."
+                            <input type="text" id="users-search" placeholder="Buscar usuarios..."
                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
-                        <select
+                        <select id="users-rol-filter"
                             class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                            <option>Todos los roles</option>
-                            <option>Administrador</option>
-                            <option>Vendedor</option>
-                            <option>Inventario</option>
-                            <option>Solo Lectura</option>
+                            <option value="">Todos los roles</option>
+                            <option value="admin">Administrador</option>
+                            <option value="seller">Vendedor</option>
+                            <option value="inventory">Inventario</option>
+                            <option value="readonly">Solo Lectura</option>
                         </select>
-                        <select
+                        <select id="users-estado-filter"
                             class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                            <option>Todos los estados</option>
-                            <option>Activos</option>
-                            <option>Inactivos</option>
-                            <option>Suspendidos</option>
+                            <option value="">Todos los estados</option>
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                            <option value="suspendido">Suspendido</option>
                         </select>
                     </div>
                 </div>
@@ -1735,21 +1859,13 @@
                                         Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200" id="users-table-body">
+                            <tbody class="bg-white divide-y divide-gray-200" id="users-tbody">
                                 <!-- Los usuarios se cargarán dinámicamente aquí -->
                             </tbody>
                         </table>
                     </div>
-                    <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-                        <div class="flex items-center justify-between">
-                            <div class="text-sm text-gray-700" id="users-pagination-info">
-                                Mostrando <span class="font-medium">1</span> a <span class="font-medium">5</span> de
-                                <span class="font-medium">0</span> usuarios
-                            </div>
-                            <div class="flex gap-2" id="users-pagination-buttons">
-                                <!-- Los botones se generarán dinámicamente -->
-                            </div>
-                        </div>
+                    <div class="bg-gray-50 px-6 py-3 border-t border-gray-200" id="users-pagination">
+                        <!-- La paginación se generará dinámicamente aquí -->
                     </div>
                 </div>
             </section>
@@ -1771,7 +1887,7 @@
     </div>
 
     <!-- Modal Nuevo Usuario -->
-    <div id="new-user-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div id="user-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <!-- Header del Modal -->
             <div class="flex justify-between items-center p-6 border-b border-gray-200">
@@ -1780,7 +1896,7 @@
                         <i class="fas fa-user-plus text-indigo-600 text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-900">Nuevo Usuario</h3>
+                        <h3 id="modal-title" class="text-xl font-bold text-gray-900">Nuevo Usuario</h3>
                         <p class="text-sm text-gray-600">Crear un nuevo usuario en el sistema</p>
                     </div>
                 </div>
@@ -1790,7 +1906,7 @@
             </div>
 
             <!-- Formulario -->
-            <form id="new-user-form" class="p-6 space-y-6">
+            <form id="user-form" class="p-6 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Nombre Completo -->
                     <div class="md:col-span-2">
@@ -1941,14 +2057,298 @@
     <div id="toast-container" class="fixed top-4 right-4 space-y-2 z-50"></div>
 
     <!-- JavaScript Assets -->
-    <script src="assets/js/utils/helpers.js"></script>
-    <script src="assets/js/auth/auth.js"></script>
+    <!-- helpers.js eliminado - causaba interferencia -->
+    <!-- auth.js eliminado - causaba redirects automáticos -->
+    
+    <!-- DEBUG: Limpiado - problema era caché del navegador -->
+    
+    <!-- SISTEMA DE CONTROL DE ACCESO POR ROLES -->
+    <script>
+        // Configuración de permisos por rol
+        const ROLE_PERMISSIONS = {
+            admin: {
+                name: 'Administrador',
+                sections: ['dashboard', 'inventory', 'stock', 'sales', 'reports', 'users'],
+                description: 'Acceso completo al sistema'
+            },
+            seller: {
+                name: 'Vendedor',
+                sections: ['dashboard', 'inventory', 'sales', 'reports'],
+                description: 'Gestión de ventas e inventario (solo lectura)'
+            },
+            inventory: {
+                name: 'Inventario',
+                sections: ['dashboard', 'inventory', 'stock'],
+                description: 'Gestión completa de inventario y stock'
+            },
+            readonly: {
+                name: 'Consulta',
+                sections: ['dashboard', 'inventory', 'reports'],
+                description: 'Solo lectura de información'
+            }
+        };
+
+        // Función para obtener el rol del usuario actual
+        function getCurrentUserRole() {
+            try {
+                const sessionData = localStorage.getItem('libreria_session');
+                if (sessionData) {
+                    const session = JSON.parse(sessionData);
+                    return session.user?.rol || 'readonly';
+                }
+                return 'readonly';
+            } catch (error) {
+                console.error('Error al obtener rol del usuario:', error);
+                return 'readonly';
+            }
+        }
+
+        // Función para verificar si el usuario tiene acceso a una sección
+        function hasAccessToSection(section) {
+            const userRole = getCurrentUserRole();
+            const roleConfig = ROLE_PERMISSIONS[userRole];
+            
+            if (!roleConfig) {
+                console.warn(`Rol no reconocido: ${userRole}`);
+                return false;
+            }
+            
+            return roleConfig.sections.includes(section);
+        }
+
+        // Función para aplicar restricciones de acceso
+        function applyAccessControl() {
+            const userRole = getCurrentUserRole();
+            const roleConfig = ROLE_PERMISSIONS[userRole];
+            
+            console.log(`🔐 Aplicando control de acceso para rol: ${roleConfig?.name || userRole}`);
+            
+            // Obtener todos los enlaces de navegación
+            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+            
+            navLinks.forEach(link => {
+                const section = link.getAttribute('data-section');
+                
+                if (!hasAccessToSection(section)) {
+                    // Ocultar sección no permitida
+                    const listItem = link.closest('li');
+                    if (listItem) {
+                        listItem.style.display = 'none';
+                        console.log(`❌ Sección "${section}" oculta para rol ${userRole}`);
+                    }
+                } else {
+                    console.log(`✅ Sección "${section}" accesible para rol ${userRole}`);
+                }
+            });
+
+            // Mostrar información del usuario en consola
+            console.log(`👤 Usuario: ${roleConfig?.name || userRole}`);
+            console.log(`📋 Secciones permitidas:`, roleConfig?.sections || []);
+        }
+
+        // Función de logout independiente
+        function handleLogout() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                console.log('🚪 Cerrando sesión...');
+                
+                // Limpiar completamente el localStorage
+                localStorage.clear();
+                
+                // Mostrar mensaje (opcional)
+                console.log('✅ Sesión cerrada correctamente');
+                
+                // Redirigir al login
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // Hacer funciones disponibles globalmente
+        window.handleLogout = handleLogout;
+        window.hasAccessToSection = hasAccessToSection;
+        window.getCurrentUserRole = getCurrentUserRole;
+        window.ROLE_PERMISSIONS = ROLE_PERMISSIONS;
+
+        // Función para actualizar información del usuario en el header
+        function updateUserHeader() {
+            try {
+                const sessionData = localStorage.getItem('libreria_session');
+                if (sessionData) {
+                    const session = JSON.parse(sessionData);
+                    const user = session.user;
+                    const roleConfig = ROLE_PERMISSIONS[user.rol] || { name: user.rol };
+                    
+                    // Actualizar nombre del usuario
+                    const userNameElement = document.querySelector('.user-info p.font-medium');
+                    if (userNameElement && user.name) {
+                        userNameElement.textContent = user.name;
+                    }
+                    
+                    // Actualizar rol del usuario
+                    const userRoleElement = document.querySelector('.user-info p.text-sm');
+                    if (userRoleElement) {
+                        userRoleElement.textContent = roleConfig.name;
+                        
+                        // Agregar color según el rol
+                        userRoleElement.className = 'text-sm opacity-75';
+                        switch(user.rol) {
+                            case 'admin':
+                                userRoleElement.className += ' text-yellow-200';
+                                break;
+                            case 'seller':
+                                userRoleElement.className += ' text-green-200';
+                                break;
+                            case 'inventory':
+                                userRoleElement.className += ' text-blue-200';
+                                break;
+                            case 'readonly':
+                                userRoleElement.className += ' text-gray-300';
+                                break;
+                        }
+                    }
+                    
+                    console.log(`👤 Header actualizado para: ${user.name} (${roleConfig.name})`);
+                }
+            } catch (error) {
+                console.error('Error al actualizar header del usuario:', error);
+            }
+        }
+
+        // Aplicar control de acceso cuando se carga la página
+        document.addEventListener('DOMContentLoaded', () => {
+            // Esperar un poco para que se carguen todos los elementos
+            setTimeout(() => {
+                applyAccessControl();
+                updateUserHeader();
+            }, 100);
+        });
+    </script>
+    <!-- Core JavaScript -->
     <script src="assets/js/main.js"></script>
+    
+    <!-- Modales de Ventas -->
+    
+    <!-- Modal Nueva Venta -->
+    <div id="new-sale-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 shadow-lg rounded-md bg-white">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-gray-900">Nueva Venta</h3>
+                <button id="close-new-sale-modal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Información de cliente y búsqueda -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Cliente *</label>
+                        <select id="sale-client-select" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="">Seleccionar cliente...</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Buscar Libros</label>
+                        <div class="relative">
+                            <input type="text" id="sale-book-search" placeholder="Buscar por título, autor o ISBN..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div id="book-search-results" class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Método de Pago</label>
+                            <select id="payment-method" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="efectivo">Efectivo</option>
+                                <option value="tarjeta_credito">Tarjeta de Crédito</option>
+                                <option value="tarjeta_debito">Tarjeta de Débito</option>
+                                <option value="transferencia">Transferencia</option>
+                                <option value="cheque">Cheque</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Descuento ($)</label>
+                            <input type="number" id="sale-discount" min="0" step="1000" value="0"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Notas (Opcional)</label>
+                        <textarea id="sale-notes" rows="3" placeholder="Notas adicionales sobre la venta..."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    </div>
+                </div>
+
+                <!-- Items de venta y totales -->
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-lg font-medium text-gray-900 mb-4">Items de la Venta</h4>
+                        <div id="sale-items" class="space-y-3 max-h-80 overflow-y-auto"></div>
+                    </div>
+
+                    <!-- Totales -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal:</span>
+                                <span id="sale-subtotal" class="font-medium">$0</span>
+                            </div>
+                            <div class="flex justify-between border-t pt-2">
+                                <span class="text-lg font-semibold">Total:</span>
+                                <span id="sale-total" class="text-lg font-bold text-green-600">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex justify-end gap-3 mt-8">
+                <button id="cancel-sale-btn" class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-lg">
+                    Cancelar
+                </button>
+                <button id="save-sale-btn" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg flex items-center gap-2">
+                    <i class="fas fa-save"></i>
+                    Guardar Venta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalle de Venta -->
+    <div id="sale-detail-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-4/5 lg:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-gray-900">Detalles de Venta</h3>
+                <button id="close-sale-detail-modal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="sale-detail-content">
+                <!-- El contenido se cargará dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación de Ventas -->
+    <div id="sales-pagination" class="flex items-center justify-between mt-6">
+        <!-- La paginación se cargará dinámicamente -->
+    </div>
+
+    <!-- Authentication and Permissions -->
+    <script src="assets/js/auth/permission-manager.js"></script>
+    
+    <!-- Application Modules -->
     <script src="assets/js/modules/navigation.js"></script>
     <script src="assets/js/components/dashboard.js"></script>
     <script src="assets/js/modules/section-observer.js"></script>
-    <script src="assets/js/modules/user-management.js"></script>
     <script src="assets/js/modules/inventory-manager.js"></script>
+    <script src="assets/js/modules/sales-manager.js"></script>
+    <script src="assets/js/modules/users-manager.js"></script>
     <script src="assets/js/inventory-init.js"></script>
     <script src="assets/js/modules/app-init.js"></script>
 </body>

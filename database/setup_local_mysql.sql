@@ -661,9 +661,13 @@ INSERT INTO libros (titulo, subtitulo, isbn, isbn13, autor, editorial, año_publ
 ('El Alquimista', NULL, '9788408043331', '9788408043331', 'Paulo Coelho', 'Editorial Planeta', 1988, '1ra Edición', 'Español', 192, 'tapa_blanda', 6, 1, 18000.00, 25000.00, 20, 8, 'C1-A01', 'Fábula sobre seguir los sueños personales.', '9788408043331'),
 ('El Principito', NULL, '9788478887227', '9788478887227', 'Antoine de Saint-Exupéry', 'Salamandra', 1943, 'Edición Ilustrada', 'Español', 96, 'tapa_dura', 7, 3, 22000.00, 32000.00, 28, 10, 'F1-I01', 'Clásico de la literatura infantil.', '9788478887227');
 
--- Cliente de ejemplo
-INSERT INTO clientes (tipo_cliente, nombre, apellidos, documento_tipo, documento_numero, email, telefono, celular, direccion, ciudad, departamento) VALUES
-('persona', 'Cliente', 'De Prueba', 'cedula', '1234567890', 'cliente@ejemplo.com', '(601) 234-5678', '3001234567', 'Calle 123 #45-67', 'Bogotá', 'Cundinamarca');
+-- Clientes de ejemplo
+INSERT INTO clientes (tipo_cliente, nombre, apellidos, documento_tipo, documento_numero, email, telefono, celular, direccion, ciudad, departamento, estado) VALUES
+('persona', 'Cliente', 'De Prueba', 'cedula', '1234567890', 'cliente@ejemplo.com', '(601) 234-5678', '3001234567', 'Calle 123 #45-67', 'Bogotá', 'Cundinamarca', 'activo'),
+('persona', 'María', 'González', 'cedula', '9876543210', 'maria.gonzalez@email.com', '(601) 234-5678', '3101234567', 'Carrera 15 #32-45', 'Bogotá', 'Cundinamarca', 'activo'),
+('persona', 'Carlos', 'Rodríguez', 'cedula', '1122334455', 'carlos.rodriguez@email.com', '(602) 345-6789', '3201234567', 'Calle 80 #12-34', 'Medellín', 'Antioquia', 'activo'),
+('persona', 'Ana', 'Martínez', 'cedula', '5566778899', 'ana.martinez@email.com', '(603) 456-7890', '3301234567', 'Avenida 6 #45-67', 'Cali', 'Valle del Cauca', 'activo'),
+('empresa', 'Biblioteca Central', '', 'nit', '9001234567', 'compras@bibliotecacentral.edu.co', '(601) 678-9012', '3501234567', 'Carrera 30 #45-67', 'Bogotá', 'Cundinamarca', 'activo');
 
 -- Registro de auditoría inicial
 INSERT INTO auditoria (usuario_id, accion, tabla_afectada, descripcion, fecha_accion) VALUES

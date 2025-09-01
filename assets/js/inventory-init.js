@@ -58,15 +58,25 @@ function initializeInventory() {
     }
 }
 
-// Inicializar cuando el DOM esté listo
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeInventory);
+// NO ejecutar en la página de login
+if (window.location.pathname.includes('login.html')) {
+    console.log('🚫 inventory-init.js: Evitando ejecución en página de login');
 } else {
-    initializeInventory();
+    // Inicializar cuando el DOM esté listo
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeInventory);
+    } else {
+        initializeInventory();
+    }
 }
 
 // También intentar inicializar después de un delay para asegurar que todo esté cargado
 setTimeout(() => {
+    // NO ejecutar en la página de login
+    if (window.location.pathname.includes('login.html')) {
+        return;
+    }
+    
     if (window.InventoryManager && !window.InventoryManager.state.isInitialized) {
         console.log('🔄 Intento de inicialización tardía del inventario...');
         const inventorySection = document.getElementById('inventory-section');

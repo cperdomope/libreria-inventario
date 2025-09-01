@@ -6,18 +6,53 @@
 
 // ===== CONFIGURACIÓN INICIAL =====
 document.addEventListener('DOMContentLoaded', function() {
+    // NO ejecutar app-init en la página de login
+    if (window.location.pathname.includes('login.html')) {
+        console.log('🚫 app-init.js: Evitando ejecución en página de login');
+        return;
+    }
+    
     console.log('Inicializando aplicación...');
     
-    // Inicializar sistema de autenticación PRIMERO
-    if (window.AuthSystem) {
-        const isAuthenticated = AuthSystem.init();
-        if (!isAuthenticated) {
-            return; // Si no está autenticado, se redirige al login
-        }
-    } else {
-        console.error('Sistema de autenticación no disponible');
+    // VERIFICACIÓN TOLERANTE DE SESIÓN
+    const sessionData = localStorage.getItem('libreria_session');
+    const authToken = localStorage.getItem('auth_token') || localStorage.getItem('user_token');
+    
+    console.log('🔍 Verificando sesión...');
+    console.log('- Session data:', !!sessionData);
+    console.log('- Auth token:', !!authToken);
+    
+    // Solo redirigir si NO HAY NADA de sesión
+    if (!sessionData && !authToken) {
+        console.log('❌ Sin datos de sesión, redirigiendo al login');
         window.location.href = 'login.html';
         return;
+    }
+    
+    // Si hay sessionData, verificar su validez
+    if (sessionData) {
+        try {
+            const session = JSON.parse(sessionData);
+            console.log('✅ Sesión válida para:', session.user?.name || session.user?.email || 'Usuario');
+            
+            // Solo redirigir si la sesión está REALMENTE expirada (más de 24 horas)
+            if (session.expires && Date.now() > (session.expires + 60000)) { // +1 minuto de gracia
+                console.log('⏰ Sesión expirada, redirigiendo al login');
+                localStorage.clear();
+                window.location.href = 'login.html';
+                return;
+            }
+            
+        } catch (error) {
+            console.warn('⚠️ Error al parsear sesión, pero continuando:', error);
+            // No redirigir por errores de parsing si hay token
+            if (!authToken) {
+                console.log('❌ Sin token alternativo, redirigiendo al login');
+                localStorage.clear();
+                window.location.href = 'login.html';
+                return;
+            }
+        }
     }
     
     // Inicializar navegación usando NavigationManager
@@ -25,11 +60,88 @@ document.addEventListener('DOMContentLoaded', function() {
         NavigationManager.init();
     }
     
+    // Inicializar módulos de la aplicación
+    initializeAppModules();
+    
     // Inicializar eventos de UI
     initUIEvents();
     
     console.log('Aplicación inicializada correctamente');
 });
+
+// ===== INICIALIZACIÓN DE MÓDULOS =====
+/**
+ * Inicializar todos los módulos de la aplicación
+ */
+async function initializeAppModules() {
+    console.log('🔧 Inicializando módulos de la aplicación...');
+    
+    try {
+        // Esperar a que los elementos DOM estén listos
+        await waitForDOM();
+        
+        // Inicializar módulo de inventario
+        if (window.InventoryManager && typeof InventoryManager.init === 'function') {
+            console.log('📚 Inicializando módulo de inventario...');
+            await InventoryManager.init();
+        }
+        
+        // Inicializar módulo de ventas
+        if (window.SalesManager && typeof SalesManager.init === 'function') {
+            console.log('🛒 Inicializando módulo de ventas...');
+            await SalesManager.init();
+        }
+        
+        // Inicializar módulo de usuarios
+        if (window.UsersManager && typeof UsersManager.init === 'function') {
+            console.log('👥 Inicializando módulo de usuarios...');
+            await UsersManager.init();
+        }
+        
+        // Escuchar cambios de sección para inicializar módulos específicos
+        document.addEventListener('sectionChanged', handleSectionChange);
+        
+        console.log('✅ Todos los módulos inicializados exitosamente');
+        
+    } catch (error) {
+        console.error('❌ Error inicializando módulos:', error);
+    }
+}
+
+/**
+ * Manejar cambios de sección
+ */
+function handleSectionChange(event) {
+    const section = event.detail.section;
+    
+    switch (section) {
+        case 'sales':
+            // Actualizar datos de ventas cuando se accede a la sección
+            if (window.SalesManager && SalesManager.isInitialized) {
+                SalesManager.loadSales();
+            }
+            break;
+        case 'inventory':
+            // Actualizar datos de inventario cuando se accede a la sección
+            if (window.InventoryManager && InventoryManager.isInitialized) {
+                InventoryManager.loadBooks();
+            }
+            break;
+    }
+}
+
+/**
+ * Esperar a que el DOM esté completamente cargado
+ */
+function waitForDOM() {
+    return new Promise((resolve) => {
+        if (document.readyState === 'complete') {
+            resolve();
+        } else {
+            window.addEventListener('load', resolve);
+        }
+    });
+}
 
 // ===== NAVEGACIÓN DE LA APLICACIÓN =====
 const AppNavigation = {
@@ -275,10 +387,47 @@ function initOtherUIEvents() {
         });
     }
     
+    // Manejar modal de usuarios
+    initUserModalEvents();
+    
     // Manejar eventos de teclado globales
     document.addEventListener('keydown', (e) => {
         handleGlobalKeyboard(e);
     });
+}
+
+/**
+ * Inicializar eventos del modal de usuario
+ */
+function initUserModalEvents() {
+    const modal = document.getElementById('user-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', () => {
+            if (window.UsersManager) {
+                UsersManager.hideModal();
+            }
+        });
+    }
+    
+    if (cancelBtn && modal) {
+        cancelBtn.addEventListener('click', () => {
+            if (window.UsersManager) {
+                UsersManager.hideModal();
+            }
+        });
+    }
+    
+    // Cerrar modal al hacer clic fuera de él
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal && window.UsersManager) {
+                UsersManager.hideModal();
+            }
+        });
+    }
 }
 
 /**

@@ -9,12 +9,28 @@
 // CONFIGURACIÓN DE CONEXIÓN A LA BASE DE DATOS
 // ================================================================
 
-// Configuración para MySQL Server local (no Laragon)
+// Configuración para Laragon/MySQL local
 define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
 define('DB_NAME', 'libreria_inventario');
 define('DB_USER', 'root');
-define('DB_PASS', 'root'); // Contraseña root para MySQL Server local
+
+// Autodetectar contraseña
+function getDbPassword() {
+    $passwords = ['root', '', 'password', '123456'];
+    foreach ($passwords as $pass) {
+        try {
+            $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME;
+            $pdo = new PDO($dsn, DB_USER, $pass);
+            return $pass;
+        } catch (PDOException $e) {
+            continue;
+        }
+    }
+    throw new Exception("No se pudo conectar con ninguna contraseña común");
+}
+
+define('DB_PASS', getDbPassword());
 define('DB_CHARSET', 'utf8mb4');
 
 // Configuración adicional
@@ -48,7 +64,9 @@ class DatabaseConnection {
             
         } catch (PDOException $e) {
             error_log("Error de conexión a la base de datos: " . $e->getMessage());
-            die("Error de conexión a la base de datos. Por favor, contacte al administrador.");
+            
+            // Mostrar error detallado para debugging
+            die("Error de conexión a la base de datos: " . $e->getMessage());
         }
     }
     

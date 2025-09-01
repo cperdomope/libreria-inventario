@@ -13,6 +13,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 
 // Incluir configuración de base de datos
 require_once '../database/config.php';
+require_once 'permissions.php';
 
 // Obtener método HTTP
 $method = $_SERVER['REQUEST_METHOD'];
@@ -20,15 +21,23 @@ $method = $_SERVER['REQUEST_METHOD'];
 try {
     switch ($method) {
         case 'GET':
+            // Todos los roles pueden ver inventario
+            checkPermission('inventory', 'view');
             handleGetBooks();
             break;
         case 'POST':
+            // Solo admin e inventory pueden crear libros
+            checkPermission('inventory', 'create');
             handleCreateBook();
             break;
         case 'PUT':
+            // Solo admin e inventory pueden editar libros
+            checkPermission('inventory', 'edit');
             handleUpdateBook();
             break;
         case 'DELETE':
+            // Solo admin e inventory pueden eliminar libros
+            checkPermission('inventory', 'delete');
             handleDeleteBook();
             break;
         default:

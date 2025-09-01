@@ -69,6 +69,7 @@ const NavigationManager = {
     this.setupEventListeners();
     this.setupSidebar();
     this.setupBreadcrumbs();
+    this.renderNavigationMenu(); // Renderizar menú basado en permisos
     this.loadInitialSection();
 
     console.log("NavigationManager inicializado");
@@ -209,7 +210,7 @@ const NavigationManager = {
   },
 
   /**
-   * Validar acceso a sección
+   * Validar acceso a sección usando el sistema de permisos por roles
    */
   validateSectionAccess(sectionName) {
     const section = this.sections[sectionName];
@@ -219,9 +220,23 @@ const NavigationManager = {
       return false;
     }
 
-    // Verificar si requiere permisos de admin
-    if (section.requiresAdmin && !this.isUserAdmin()) {
-      return false;
+    // Usar el sistema de permisos por roles
+    if (window.PermissionManager) {
+      // Mapear secciones a módulos de permisos
+      const moduleMap = {
+        'dashboard': 'dashboard',
+        'inventory': 'inventory',
+        'stock': 'stock',
+        'sales': 'sales',
+        'reports': 'reports',
+        'users': 'users'
+      };
+
+      const module = moduleMap[sectionName];
+      if (module && !PermissionManager.canAccessModule(module)) {
+        console.warn(`🚫 Acceso denegado a la sección "${sectionName}" para el rol actual`);
+        return false;
+      }
     }
 
     return true;
@@ -231,16 +246,96 @@ const NavigationManager = {
    * Verificar si el usuario está autenticado
    */
   isUserAuthenticated() {
-    // Implementar lógica de autenticación
-    return true; // Por ahora siempre retorna true
+    return window.PermissionManager ? PermissionManager.isLoggedIn() : false;
   },
 
   /**
    * Verificar si el usuario es administrador
    */
   isUserAdmin() {
-    // Implementar lógica de verificación de admin
-    return true; // Por ahora siempre retorna true
+    return window.PermissionManager ? PermissionManager.getUserRole() === 'admin' : false;
+  },
+
+  /**
+   * Renderizar menú de navegación basado en permisos
+   */
+  renderNavigationMenu() {
+    if (!window.PermissionManager) {
+      console.warn('PermissionManager no disponible para renderizar menú');
+      return;
+    }
+
+    const sidebarNav = document.querySelector('#sidebar nav ul');
+    if (!sidebarNav) return;
+
+    // Limpiar menú existente
+    sidebarNav.innerHTML = '';
+
+    // Definir ítems de menú con sus permisos requeridos
+    const menuItems = [
+      {
+        section: 'dashboard',
+        module: 'dashboard',
+        action: 'view',
+        icon: 'fas fa-chart-pie',
+        title: 'Dashboard',
+        alwaysShow: true // Dashboard siempre visible
+      },
+      {
+        section: 'inventory',
+        module: 'inventory',
+        action: 'view',
+        icon: 'fas fa-book',
+        title: 'Inventario'
+      },
+      {
+        section: 'stock',
+        module: 'stock',
+        action: 'view',
+        icon: 'fas fa-boxes',
+        title: 'Control de Stock'
+      },
+      {
+        section: 'sales',
+        module: 'sales',
+        action: 'view',
+        icon: 'fas fa-shopping-cart',
+        title: 'Ventas'
+      },
+      {
+        section: 'reports',
+        module: 'reports',
+        action: 'view',
+        icon: 'fas fa-chart-bar',
+        title: 'Reportes'
+      },
+      {
+        section: 'users',
+        module: 'users',
+        action: 'view',
+        icon: 'fas fa-users',
+        title: 'Usuarios'
+      }
+    ];
+
+    // Filtrar y renderizar ítems según permisos
+    menuItems.forEach(item => {
+      const canAccess = item.alwaysShow || PermissionManager.canAccessModule(item.module);
+      
+      if (canAccess) {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-indigo-600 transition-colors duration-200" 
+             data-section="${item.section}">
+            <i class="${item.icon} mr-3 text-lg"></i>
+            <span class="font-medium">${item.title}</span>
+          </a>
+        `;
+        sidebarNav.appendChild(li);
+      }
+    });
+
+    console.log('✅ Menú de navegación renderizado según permisos');
   },
 
   /**

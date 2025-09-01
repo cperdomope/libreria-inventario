@@ -38,7 +38,7 @@
                     <i class="fas fa-book text-white text-3xl"></i>
                 </div>
                 <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
-                    Librería Digital
+                    Librería El Saber
                 </h2>
                 <p class="mt-2 text-sm text-gray-600">
                     Sistema de Inventario
@@ -48,9 +48,23 @@
                 </p>
             </div>
 
+            <!-- Message Container -->
+            <div id="login-messages" class="hidden my-4"></div>
+
+            <!-- Security Status Info -->
+            <div id="security-info" class="hidden bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-amber-500 mr-2"></i>
+                    <div class="text-sm text-amber-700">
+                        <p class="font-medium">Control de Seguridad Activo</p>
+                        <p class="text-xs mt-1">Máximo 3 intentos. Bloqueo temporal de 2 minutos tras fallos consecutivos.</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Login Form -->
-            <form class="mt-8 space-y-6" id="loginForm">
-                <div class="bg-white rounded-2xl shadow-xl p-8 backdrop-blur-lg bg-white/80 border border-white/20">
+            <form class="mt-8 space-y-6" id="loginForm" autocomplete="off">
+                <div class="login-card bg-white rounded-2xl shadow-xl p-8 backdrop-blur-lg bg-white/80 border border-white/20">
                     <div class="space-y-6">
                         <!-- Email Field -->
                         <div>
@@ -59,9 +73,9 @@
                                 Correo Electrónico
                             </label>
                             <div class="relative">
-                                <input id="email" name="email" type="email" autocomplete="email" required
+                                <input id="email" name="email" type="email" autocomplete="off" required
                                     class="login-input appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-all duration-200"
-                                    placeholder="usuario@libreria.com" value="admin@libreria.com">
+                                    placeholder="usuario@libreria.com" value="">
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                     <i class="fas fa-user text-gray-400"></i>
                                 </div>
@@ -75,10 +89,10 @@
                                 Contraseña
                             </label>
                             <div class="relative">
-                                <input id="password" name="password" type="password" autocomplete="current-password"
+                                <input id="password" name="password" type="password" autocomplete="off"
                                     required
                                     class="login-input appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-all duration-200"
-                                    placeholder="••••••••" value="admin123">
+                                    placeholder="••••••••" value="">
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                     <button type="button" id="togglePassword"
                                         class="text-gray-400 hover:text-gray-600 focus:outline-none">
@@ -108,10 +122,10 @@
 
                         <!-- Submit Button -->
                         <div>
-                            <button type="submit"
-                                class="login-button group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:scale-105 shadow-lg">
+                            <button type="submit" id="loginButton"
+                                class="login-button group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
                                 <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                                    <i class="fas fa-sign-in-alt text-indigo-300 group-hover:text-indigo-200"></i>
+                                    <i class="fas fa-sign-in-alt text-indigo-300 group-hover:text-indigo-200" id="buttonIcon"></i>
                                 </span>
                                 <span id="buttonText">Iniciar Sesión</span>
                                 <div id="loadingSpinner" class="hidden ml-2">
@@ -119,27 +133,38 @@
                                 </div>
                             </button>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Demo Credentials -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
-                    <div class="flex items-center">
-                        <i class="fas fa-info-circle text-blue-500 mr-2"></i>
-                        <div class="text-sm">
-                            <p class="font-medium text-blue-800">Credenciales de Demostración:</p>
-                            <p class="text-blue-600 mt-1">
-                                <strong>Usuario:</strong> admin@libreria.com<br>
-                                <strong>Contraseña:</strong> admin123
+                        <!-- Attempts Counter -->
+                        <div id="attempts-counter" class="hidden text-center mt-2">
+                            <p class="text-xs text-gray-500">
+                                <i class="fas fa-exclamation-triangle text-amber-500 mr-1"></i>
+                                <span id="attempts-text">Intentos restantes: 3</span>
                             </p>
+                        </div>
+
+                        <!-- Lockout Timer -->
+                        <div id="lockout-timer" class="hidden text-center mt-3">
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+                                <div class="flex items-center justify-center">
+                                    <i class="fas fa-clock text-red-500 mr-2"></i>
+                                    <div class="text-sm text-red-700">
+                                        <p class="font-semibold">Cuenta Bloqueada Temporalmente</p>
+                                        <p class="text-xs mt-1">
+                                            Tiempo restante: <span id="timer-display" class="font-mono font-bold">2:00</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </form>
+            
 
             <!-- Footer -->
             <div class="text-center text-xs text-gray-500 mt-8">
-                <p>© 2025 Librería Digital. Todos los derechos reservados.</p>
+                <p>© 2025 Librería El Saber. Todos los derechos reservados.</p>
                 <p class="mt-1">Sistema de Inventario v1.0</p>
             </div>
         </div>
@@ -149,7 +174,6 @@
     <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
 
     <!-- JavaScript Assets -->
-    <script src="assets/js/utils/helpers.js"></script>
     <script src="assets/js/auth/login.js"></script>
 </body>
 

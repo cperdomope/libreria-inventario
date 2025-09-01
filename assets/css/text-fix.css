@@ -12,6 +12,41 @@
     background-color: #ffffff !important;
 }
 
+/* TOAST NOTIFICATIONS - FORZAR TEXTO VISIBLE */
+.toast, .toast * {
+    color: #1f2937 !important;
+}
+
+.toast {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.toast-message {
+    color: #1f2937 !important;
+    font-weight: 500 !important;
+}
+
+.toast-icon {
+    color: inherit !important;
+}
+
+.toast.success .toast-icon {
+    color: #059669 !important;
+}
+
+.toast.error .toast-icon {
+    color: #dc2626 !important;
+}
+
+.toast.warning .toast-icon {
+    color: #d97706 !important;
+}
+
+.toast.info .toast-icon {
+    color: #2563eb !important;
+}
+
 /* Tailwind override específico */
 .text-gray-400,
 .text-gray-500 {

@@ -424,23 +424,8 @@ function createTables() {
  */
 function insertSampleData() {
     try {
-        $sqlFile = __DIR__ . '/sample_data.sql';
-        
-        if (!file_exists($sqlFile)) {
-            return ['success' => false, 'message' => 'Archivo de datos no encontrado: ' . $sqlFile];
-        }
-        
-        $sql = file_get_contents($sqlFile);
-        
-        // Hash para las contraseñas (admin123)
-        $hashedPassword = password_hash('admin123', PASSWORD_DEFAULT);
-        $sql = str_replace('$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', $hashedPassword, $sql);
-        
-        $pdo = getDB();
-        $pdo->exec($sql);
-        
-        return ['success' => true, 'message' => 'Datos de muestra insertados exitosamente.'];
-        
+        // Los datos de muestra ya están incluidos en setup_local_mysql.sql
+        return ['success' => true, 'message' => 'Datos de muestra ya incluidos en el schema principal'];
     } catch (Exception $e) {
         return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
     }
