@@ -1,0 +1,250 @@
+[06-Sep-2025 19:25:28 UTC] Auth: Buscando usuario con email: charles@libreria.com
+[06-Sep-2025 19:25:28 UTC] Auth: Usuario encontrado: SI
+[06-Sep-2025 20:55:19 UTC] Auth: Buscando usuario con email: charles@libreria.com
+[06-Sep-2025 20:55:19 UTC] Auth: Usuario encontrado: SI
+[06-Sep-2025 21:28:45 UTC] 📚 API Simple Libros: 0 libros encontrados
+[06-Sep-2025 21:39:19 UTC] 📚 API Simple Libros: 9 libros encontrados
+[06-Sep-2025 21:39:19 UTC] 📚 Primer libro: {"id":6,"titulo":"Breve historia del tiempo","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Stephen Hawking","editorial":"Cr\u00edtica","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":3,"proveedor_id":2,"precio_compra":"30000.00","precio_venta":"42000.00","stock_actual":10,"stock_minimo":3,"stock_maximo":null,"ubicacion":"D1-C01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ciencia","categoria_color":"#3B82F6"}
+[06-Sep-2025 21:39:39 UTC] 📚 API Simple Libros: 1 libros encontrados
+[06-Sep-2025 21:39:39 UTC] 📚 Primer libro: {"id":1,"titulo":"Cien a\u00f1os de soledad","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Gabriel Garc\u00eda M\u00e1rquez","editorial":"Editorial Sudamericana","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":1,"proveedor_id":1,"precio_compra":"25000.00","precio_venta":"35000.00","stock_actual":15,"stock_minimo":5,"stock_maximo":null,"ubicacion":"A1-F01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ficci\u00f3n","categoria_color":"#8B5CF6"}
+[06-Sep-2025 21:40:27 UTC] 📚 API Simple Libros: 5 libros encontrados
+[06-Sep-2025 21:40:27 UTC] 📚 Primer libro: {"id":6,"titulo":"Breve historia del tiempo","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Stephen Hawking","editorial":"Cr\u00edtica","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":3,"proveedor_id":2,"precio_compra":"30000.00","precio_venta":"42000.00","stock_actual":10,"stock_minimo":3,"stock_maximo":null,"ubicacion":"D1-C01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ciencia","categoria_color":"#3B82F6"}
+[06-Sep-2025 21:40:38 UTC] 📚 API Simple Libros: 5 libros encontrados
+[06-Sep-2025 21:40:38 UTC] 📚 Primer libro: {"id":6,"titulo":"Breve historia del tiempo","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Stephen Hawking","editorial":"Cr\u00edtica","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":3,"proveedor_id":2,"precio_compra":"30000.00","precio_venta":"42000.00","stock_actual":10,"stock_minimo":3,"stock_maximo":null,"ubicacion":"D1-C01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ciencia","categoria_color":"#3B82F6"}
+[06-Sep-2025 21:40:50 UTC] 📚 API Simple Libros: 5 libros encontrados
+[06-Sep-2025 21:40:50 UTC] 📚 Primer libro: {"id":6,"titulo":"Breve historia del tiempo","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Stephen Hawking","editorial":"Cr\u00edtica","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":3,"proveedor_id":2,"precio_compra":"30000.00","precio_venta":"42000.00","stock_actual":10,"stock_minimo":3,"stock_maximo":null,"ubicacion":"D1-C01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ciencia","categoria_color":"#3B82F6"}
+[06-Sep-2025 21:42:19 UTC] 📚 API Simple Libros: 5 libros encontrados
+[06-Sep-2025 21:42:19 UTC] 📚 Primer libro: {"id":6,"titulo":"Breve historia del tiempo","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Stephen Hawking","editorial":"Cr\u00edtica","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":3,"proveedor_id":2,"precio_compra":"30000.00","precio_venta":"42000.00","stock_actual":10,"stock_minimo":3,"stock_maximo":null,"ubicacion":"D1-C01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ciencia","categoria_color":"#3B82F6"}
+[06-Sep-2025 21:43:44 UTC] 📚 API Simple Libros: 5 libros encontrados
+[06-Sep-2025 21:43:44 UTC] 📚 Primer libro: {"id":6,"titulo":"Breve historia del tiempo","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Stephen Hawking","editorial":"Cr\u00edtica","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":3,"proveedor_id":2,"precio_compra":"30000.00","precio_venta":"42000.00","stock_actual":10,"stock_minimo":3,"stock_maximo":null,"ubicacion":"D1-C01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ciencia","categoria_color":"#3B82F6"}
+[06-Sep-2025 21:44:05 UTC] 📚 API Simple Libros: 5 libros encontrados
+[06-Sep-2025 21:44:05 UTC] 📚 Primer libro: {"id":6,"titulo":"Breve historia del tiempo","subtitulo":null,"isbn":null,"isbn13":null,"autor":"Stephen Hawking","editorial":"Cr\u00edtica","a\u00f1o_publicacion":null,"edicion":null,"idioma":"Espa\u00f1ol","paginas":null,"formato":"tapa_blanda","categoria_id":3,"proveedor_id":2,"precio_compra":"30000.00","precio_venta":"42000.00","stock_actual":10,"stock_minimo":3,"stock_maximo":null,"ubicacion":"D1-C01","descripcion":null,"imagen_portada":null,"codigo_barras":null,"peso":null,"dimensiones":null,"estado":"disponible","destacado":0,"nuevo_ingreso":0,"descuento":"0.00","fecha_creacion":"2025-08-30 21:28:20","fecha_actualizacion":"2025-08-30 21:28:20","creado_por":1,"actualizado_por":null,"categoria_nombre":"Ciencia","categoria_color":"#3B82F6"}
+[06-Sep-2025 21:59:32 UTC] Error en executeUpdate: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_modificacion' in 'field list'
+[06-Sep-2025 21:59:42 UTC] Error en executeUpdate: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_modificacion' in 'field list'
+[06-Sep-2025 22:00:52 UTC] Error en executeUpdate: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_modificacion' in 'field list'
+[06-Sep-2025 22:03:18 UTC] Error en executeUpdate: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_modificacion' in 'field list'
+[06-Sep-2025 22:09:56 UTC] Error en executeUpdate: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_modificacion' in 'field list'
+[06-Sep-2025 22:10:17 UTC] Auth: Buscando usuario con email: charles@libreria.com
+[06-Sep-2025 22:10:17 UTC] Auth: Usuario encontrado: SI
+[06-Sep-2025 22:10:49 UTC] Error en executeUpdate: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_modificacion' in 'field list'
+[06-Sep-2025 22:11:41 UTC] Auth: Buscando usuario con email: charles@libreria.com
+[06-Sep-2025 22:11:41 UTC] Auth: Usuario encontrado: SI
+[06-Sep-2025 22:12:25 UTC] Error en executeUpdate: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_modificacion' in 'field list'
+[06-Sep-2025 22:21:06 UTC] 📝 UPDATE Book ID: 6
+[06-Sep-2025 22:21:06 UTC] 📦 Input data: {"titulo":"Breve historia del tiempo","subtitulo":"","autor":"Stephen Hawking","editorial":"Cr\u00edtica","isbn":"","isbn13":"","ubicacion":"D1-C01","descripcion":"","precio_compra":35000,"precio_venta":42000,"stock_actual":22,"stock_minimo":5,"formato":"tapa_blanda","estado":"disponible","categoria_id":"1","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:21:06 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:21:06 UTC] 📊 Values: ["Breve historia del tiempo","","Stephen Hawking","Cr\u00edtica","","","1",35000,42000,22,5,"D1-C01","","tapa_blanda","disponible","6"]
+[06-Sep-2025 22:21:06 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 22:23:09 UTC] 📝 UPDATE Book ID: 6
+[06-Sep-2025 22:23:09 UTC] 📦 Input data: {"titulo":"Breve historia del tiempo","subtitulo":"","autor":"Stephen Hawking","editorial":"Cr\u00edtica","isbn":"","isbn13":"","ubicacion":"D1-C01","descripcion":"","precio_compra":38000,"precio_venta":42000,"stock_actual":22,"stock_minimo":5,"formato":"tapa_dura","estado":"disponible","categoria_id":"4","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:23:09 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:23:09 UTC] 📊 Values: ["Breve historia del tiempo","","Stephen Hawking","Cr\u00edtica","","","4",38000,42000,22,5,"D1-C01","","tapa_dura","disponible","6"]
+[06-Sep-2025 22:23:09 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 22:33:59 UTC] 📝 UPDATE Book ID: 10
+[06-Sep-2025 22:33:59 UTC] 📦 Input data: {"titulo":"La odisea","subtitulo":"","autor":"MICHAEL TYLOR","editorial":"OSBEN","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2024,"paginas":600,"precio_compra":160000,"precio_venta":180000,"stock_actual":40,"stock_minimo":5,"formato":"bolsillo","estado":"disponible","categoria_id":"1","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:33:59 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:33:59 UTC] 📊 Values: ["La odisea","","MICHAEL TYLOR","OSBEN","","",2024,600,"1",160000,180000,40,5,"","","bolsillo","disponible","10"]
+[06-Sep-2025 22:33:59 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:33:59 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:35:28 UTC] 📝 UPDATE Book ID: 10
+[06-Sep-2025 22:35:28 UTC] 📦 Input data: {"titulo":"La odisea","subtitulo":"","autor":"MICHAEL TYLOR","editorial":"OSBEN","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2024,"paginas":600,"precio_compra":170000,"precio_venta":180000,"stock_actual":40,"stock_minimo":5,"formato":"bolsillo","estado":"disponible","categoria_id":"3","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:35:28 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:35:28 UTC] 📊 Values: ["La odisea","","MICHAEL TYLOR","OSBEN","","",2024,600,"3",170000,180000,40,5,"","","bolsillo","disponible","10"]
+[06-Sep-2025 22:35:28 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:35:28 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:36:05 UTC] Auth: Buscando usuario con email: charles@libreria.com
+[06-Sep-2025 22:36:05 UTC] Auth: Usuario encontrado: SI
+[06-Sep-2025 22:37:10 UTC] 📝 UPDATE Book ID: 10
+[06-Sep-2025 22:37:10 UTC] 📦 Input data: {"titulo":"La odisea","subtitulo":"","autor":"MICHAEL TYLOR","editorial":"OSBEN","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2024,"paginas":600,"precio_compra":175000,"precio_venta":180000,"stock_actual":40,"stock_minimo":5,"formato":"bolsillo","estado":"disponible","categoria_id":"4","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:37:10 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:37:10 UTC] 📊 Values: ["La odisea","","MICHAEL TYLOR","OSBEN","","",2024,600,"4",175000,180000,40,5,"","","bolsillo","disponible","10"]
+[06-Sep-2025 22:37:10 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:37:10 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:43:33 UTC] 📝 UPDATE Book ID: 10
+[06-Sep-2025 22:43:33 UTC] 📦 Input data: {"titulo":"La odisea","subtitulo":"","autor":"MICHAEL TYLOR","editorial":"OSBEN","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2024,"paginas":600,"precio_compra":175000,"precio_venta":180000,"stock_actual":40,"stock_minimo":5,"formato":"bolsillo","estado":"disponible","categoria_id":"4","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:43:33 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:43:33 UTC] 📊 Values: ["La odisea","","MICHAEL TYLOR","OSBEN","","",2024,600,"4",175000,180000,40,5,"","","bolsillo","disponible","10"]
+[06-Sep-2025 22:43:33 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:43:33 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:44:31 UTC] 📝 UPDATE Book ID: 6
+[06-Sep-2025 22:44:31 UTC] 📦 Input data: {"titulo":"Breve historia del tiempo","subtitulo":"","autor":"Stephen Hawking","editorial":"Cr\u00edtica","isbn":"","isbn13":"","ubicacion":"D1-C01","descripcion":"","a\u00f1o_publicacion":2025,"paginas":600,"precio_compra":40000,"precio_venta":42000,"stock_actual":33,"stock_minimo":5,"formato":"tapa_dura","estado":"disponible","categoria_id":"6","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:44:31 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:44:31 UTC] 📊 Values: ["Breve historia del tiempo","","Stephen Hawking","Cr\u00edtica","","",2025,600,"6",40000,42000,33,5,"D1-C01","","tapa_dura","disponible","6"]
+[06-Sep-2025 22:44:31 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 22:45:32 UTC] 📝 UPDATE Book ID: 2
+[06-Sep-2025 22:45:32 UTC] 📦 Input data: {"titulo":"El amor en los tiempos del c\u00f3lera","subtitulo":"","autor":"Gabriel Garc\u00eda M\u00e1rquez","editorial":"Editorial Sudamericana","isbn":"","isbn13":"","ubicacion":"A1-F02","descripcion":"","a\u00f1o_publicacion":2025,"paginas":500,"precio_compra":28000,"precio_venta":32000,"stock_actual":22,"stock_minimo":5,"formato":"tapa_blanda","estado":"disponible","categoria_id":"4","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:45:32 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:45:32 UTC] 📊 Values: ["El amor en los tiempos del c\u00f3lera","","Gabriel Garc\u00eda M\u00e1rquez","Editorial Sudamericana","","",2025,500,"4",28000,32000,22,5,"A1-F02","","tapa_blanda","disponible","2"]
+[06-Sep-2025 22:45:32 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:45:32 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:52:12 UTC] 📝 UPDATE Book ID: 9
+[06-Sep-2025 22:52:12 UTC] 📦 Input data: {"titulo":"EL CORONEL NO TIENE QUIEN LE ESCRIBA","subtitulo":"","autor":"GABRIEL GARCIA MARQUEZ","editorial":"","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2000,"precio_compra":24000,"precio_venta":250000,"stock_actual":80,"stock_minimo":5,"formato":"tapa_blanda","estado":"disponible","categoria_id":"3","destacado":false,"nuevo_ingreso":true}
+[06-Sep-2025 22:52:12 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:52:12 UTC] 📊 Values: ["EL CORONEL NO TIENE QUIEN LE ESCRIBA","","GABRIEL GARCIA MARQUEZ","","","",2000,"3",24000,250000,80,5,"","","tapa_blanda","disponible","9"]
+[06-Sep-2025 22:52:12 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:52:12 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:52:24 UTC] 📝 UPDATE Book ID: 9
+[06-Sep-2025 22:52:24 UTC] 📦 Input data: {"titulo":"EL CORONEL NO TIENE QUIEN LE ESCRIBA","subtitulo":"","autor":"GABRIEL GARCIA MARQUEZ","editorial":"","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2000,"precio_compra":24000,"precio_venta":250000,"stock_actual":78,"stock_minimo":5,"formato":"tapa_blanda","estado":"disponible","categoria_id":"3","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:52:24 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:52:24 UTC] 📊 Values: ["EL CORONEL NO TIENE QUIEN LE ESCRIBA","","GABRIEL GARCIA MARQUEZ","","","",2000,"3",24000,250000,78,5,"","","tapa_blanda","disponible","9"]
+[06-Sep-2025 22:52:24 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:52:24 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:52:45 UTC] 📝 UPDATE Book ID: 9
+[06-Sep-2025 22:52:45 UTC] 📦 Input data: {"titulo":"EL CORONEL NO TIENE QUIEN LE ESCRIBA","subtitulo":"","autor":"GABRIEL GARCIA MARQUEZ","editorial":"","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2000,"paginas":300,"precio_compra":24000,"precio_venta":250000,"stock_actual":78,"stock_minimo":5,"formato":"tapa_blanda","estado":"disponible","categoria_id":"3","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:52:45 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:52:45 UTC] 📊 Values: ["EL CORONEL NO TIENE QUIEN LE ESCRIBA","","GABRIEL GARCIA MARQUEZ","","","",2000,300,"3",24000,250000,78,5,"","","tapa_blanda","disponible","9"]
+[06-Sep-2025 22:52:45 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:52:45 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 22:55:02 UTC] 📝 UPDATE Book ID: 5
+[06-Sep-2025 22:55:02 UTC] 📦 Input data: {"titulo":"El Principito","subtitulo":"","autor":"Antoine de Saint-Exup\u00e9ry","editorial":"Salamandra","isbn":"","isbn13":"","ubicacion":"F1-I01","descripcion":"","precio_compra":30000,"precio_venta":32000,"stock_actual":25,"stock_minimo":10,"formato":"tapa_blanda","estado":"disponible","categoria_id":"2","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 22:55:02 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 22:55:02 UTC] 📊 Values: ["El Principito","","Antoine de Saint-Exup\u00e9ry","Salamandra","","","2",30000,32000,25,10,"F1-I01","","tapa_blanda","disponible","5"]
+[06-Sep-2025 22:55:02 UTC] Error en executeUpdate: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'libros.isbn'
+[06-Sep-2025 22:55:02 UTC] ❌ Error: executeUpdate retornó false
+[06-Sep-2025 23:01:09 UTC] 📝 UPDATE Book ID: 10
+[06-Sep-2025 23:01:09 UTC] 📦 Input data: {"titulo":"La odisea","subtitulo":"","autor":"MICHAEL TYLOR","editorial":"OSBEN","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2024,"precio_compra":175000,"precio_venta":180000,"stock_actual":37,"stock_minimo":5,"formato":"digital","estado":"disponible","categoria_id":"3","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 23:01:09 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 23:01:09 UTC] 📊 Values: ["La odisea","","MICHAEL TYLOR","OSBEN",null,null,2024,"3",175000,180000,37,5,"","","digital","disponible","10"]
+[06-Sep-2025 23:01:09 UTC] 📝 ISBN value: NULL
+[06-Sep-2025 23:01:09 UTC] 📝 ISBN13 value: NULL
+[06-Sep-2025 23:01:09 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 23:01:54 UTC] 📝 UPDATE Book ID: 10
+[06-Sep-2025 23:01:54 UTC] 📦 Input data: {"titulo":"La odisea","subtitulo":"","autor":"MICHAEL TYLOR","editorial":"OSBEN","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2024,"paginas":600,"precio_compra":177000,"precio_venta":180000,"stock_actual":63,"stock_minimo":5,"formato":"tapa_dura","estado":"reservado","categoria_id":"1","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 23:01:54 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 23:01:54 UTC] 📊 Values: ["La odisea","","MICHAEL TYLOR","OSBEN",null,null,2024,600,"1",177000,180000,63,5,"","","tapa_dura","reservado","10"]
+[06-Sep-2025 23:01:54 UTC] 📝 ISBN value: NULL
+[06-Sep-2025 23:01:54 UTC] 📝 ISBN13 value: NULL
+[06-Sep-2025 23:01:54 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 23:03:04 UTC] 📝 UPDATE Book ID: 2
+[06-Sep-2025 23:03:04 UTC] 📦 Input data: {"titulo":"EL AMOR EN LOS TIEMPOS DEL COLERA","subtitulo":"","autor":"Gabriel Garc\u00eda M\u00e1rquez","editorial":"Editorial Sudamericana","isbn":"","isbn13":"","ubicacion":"A1-F02","descripcion":"","a\u00f1o_publicacion":1987,"paginas":500,"precio_compra":31000,"precio_venta":32000,"stock_actual":68,"stock_minimo":5,"formato":"tapa_dura","estado":"reservado","categoria_id":"4","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 23:03:04 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 23:03:04 UTC] 📊 Values: ["EL AMOR EN LOS TIEMPOS DEL COLERA","","Gabriel Garc\u00eda M\u00e1rquez","Editorial Sudamericana",null,null,1987,500,"4",31000,32000,68,5,"A1-F02","","tapa_dura","reservado","2"]
+[06-Sep-2025 23:03:04 UTC] 📝 ISBN value: NULL
+[06-Sep-2025 23:03:04 UTC] 📝 ISBN13 value: NULL
+[06-Sep-2025 23:03:04 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 23:19:27 UTC] 📊 Total stock calculado: 347
+[06-Sep-2025 23:19:31 UTC] 📊 Total stock calculado: 347
+[06-Sep-2025 23:19:36 UTC] 📊 Total stock calculado: 347
+[06-Sep-2025 23:20:37 UTC] 📊 Total stock calculado: 347
+[06-Sep-2025 23:22:02 UTC] 📊 Total stock calculado: 497
+[06-Sep-2025 23:22:56 UTC] 📊 Total stock calculado: 497
+[06-Sep-2025 23:22:57 UTC] 📊 Total stock calculado: 497
+[06-Sep-2025 23:25:03 UTC] 📝 UPDATE Book ID: 7
+[06-Sep-2025 23:25:03 UTC] 📦 Input data: {"titulo":"Sapiens MONO","subtitulo":"","autor":"Yuval Noah Harari","editorial":"Debate","isbn":"","isbn13":"","ubicacion":"D1-C02","descripcion":"","a\u00f1o_publicacion":2025,"paginas":180,"precio_compra":48000,"precio_venta":52000,"stock_actual":31,"stock_minimo":5,"formato":"tapa_blanda","estado":"disponible","categoria_id":"4","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 23:25:03 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 23:25:04 UTC] 📊 Values: ["Sapiens MONO","","Yuval Noah Harari","Debate",null,null,2025,180,"4",48000,52000,31,5,"D1-C02","","tapa_blanda","disponible","7"]
+[06-Sep-2025 23:25:04 UTC] 📝 ISBN value: NULL
+[06-Sep-2025 23:25:04 UTC] 📝 ISBN13 value: NULL
+[06-Sep-2025 23:25:04 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 23:25:04 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:25:56 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:26:08 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:26:20 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:02 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:12 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:16 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:16 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:17 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:20 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:26 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:29 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:31 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:35 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:39 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:27:42 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:40:21 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:40:35 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:42:27 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:42:32 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:43:41 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:43:45 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:43:48 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:43:54 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:44:16 UTC] Auth: Buscando usuario con email: charles@libreria.com
+[06-Sep-2025 23:44:16 UTC] Auth: Usuario encontrado: SI
+[06-Sep-2025 23:44:17 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:45:43 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:45:49 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:46:08 UTC] 📊 === DASHBOARD API SIMPLE ===
+[06-Sep-2025 23:46:08 UTC] 📚 Total de unidades en stock: 510
+[06-Sep-2025 23:46:08 UTC] 💰 Ventas de hoy: 0
+[06-Sep-2025 23:46:08 UTC] 💵 Ingresos de hoy: 0
+[06-Sep-2025 23:46:08 UTC] ⚠️ Stock bajo: 0
+[06-Sep-2025 23:46:08 UTC] 👥 Total clientes: 3
+[06-Sep-2025 23:46:08 UTC] Error en executeQuerySingle: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_registro' in 'where clause'
+[06-Sep-2025 23:46:08 UTC] PHP Warning:  Trying to access array offset on false in C:\laragon\www\libreria-inventario\api_dashboard_simple.php on line 77
+[06-Sep-2025 23:46:08 UTC] Error en executeQuerySingle: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.apellido' in 'field list'
+[06-Sep-2025 23:46:08 UTC] ✅ Dashboard Stats: {"totalBooks":510,"salesToday":0,"revenueToday":0,"lowStock":0,"totalClients":3,"newClientsToday":0,"newClientsWeek":0,"topClient":{"name":"Sin datos","purchases":0},"criticalStock":[],"salesByCategory":{"labels":["Ficci\u00f3n","Autoayuda","Infantil","Cl\u00e1sicos","Educativo"],"data":[2,1,1,1,1]},"salesTrend":{"labels":["Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b","Dom"],"data":[0,1,0,2,1,0,1]},"recentActivity":[{"type":"system","icon":"fa-cog","color":"blue","title":"Sistema inicializado","description":"Dashboard conectado con base de datos real","time":"1 min"}]}
+[06-Sep-2025 23:46:56 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:47:00 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:49:31 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:49:36 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:50:02 UTC] Auth: Buscando usuario con email: charles@libreria.com
+[06-Sep-2025 23:50:02 UTC] Auth: Usuario encontrado: SI
+[06-Sep-2025 23:50:03 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:50:12 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:50:17 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:52:01 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:52:06 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:52:09 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:52:12 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:52:14 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:52:19 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:52:49 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:53:25 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:53:25 UTC] 📊 === DASHBOARD API SIMPLE ===
+[06-Sep-2025 23:53:25 UTC] 📚 Total de unidades en stock: 510
+[06-Sep-2025 23:53:25 UTC] 💰 Ventas de hoy: 0
+[06-Sep-2025 23:53:25 UTC] 💵 Ingresos de hoy: 0
+[06-Sep-2025 23:53:25 UTC] ⚠️ Stock bajo: 0
+[06-Sep-2025 23:53:25 UTC] 👥 Total clientes: 3
+[06-Sep-2025 23:53:25 UTC] ✅ Dashboard Stats: {"totalBooks":510,"salesToday":0,"revenueToday":0,"lowStock":0,"totalClients":3,"newClientsToday":0,"newClientsWeek":0,"topClient":{"name":"Sin datos","purchases":0},"criticalStock":[],"salesByCategory":{"labels":["Ficci\u00f3n","Autoayuda","Infantil","Cl\u00e1sicos","Educativo"],"data":[2,1,1,1,1]},"salesTrend":{"labels":["Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b","Dom"],"data":[0,1,0,2,1,0,1]},"recentActivity":[{"type":"system","icon":"fa-cog","color":"blue","title":"Sistema inicializado","description":"Dashboard conectado con base de datos real","time":"1 min"}]}
+[06-Sep-2025 23:53:32 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:53:32 UTC] 📊 === DASHBOARD API SIMPLE ===
+[06-Sep-2025 23:53:32 UTC] 📚 Total de unidades en stock: 510
+[06-Sep-2025 23:53:32 UTC] 💰 Ventas de hoy: 0
+[06-Sep-2025 23:53:32 UTC] 💵 Ingresos de hoy: 0
+[06-Sep-2025 23:53:32 UTC] ⚠️ Stock bajo: 0
+[06-Sep-2025 23:53:32 UTC] 👥 Total clientes: 3
+[06-Sep-2025 23:53:32 UTC] ✅ Dashboard Stats: {"totalBooks":510,"salesToday":0,"revenueToday":0,"lowStock":0,"totalClients":3,"newClientsToday":0,"newClientsWeek":0,"topClient":{"name":"Sin datos","purchases":0},"criticalStock":[],"salesByCategory":{"labels":["Ficci\u00f3n","Autoayuda","Infantil","Cl\u00e1sicos","Educativo"],"data":[2,1,1,1,1]},"salesTrend":{"labels":["Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b","Dom"],"data":[0,1,0,2,1,0,1]},"recentActivity":[{"type":"system","icon":"fa-cog","color":"blue","title":"Sistema inicializado","description":"Dashboard conectado con base de datos real","time":"1 min"}]}
+[06-Sep-2025 23:55:41 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:55:41 UTC] 📊 === DASHBOARD API SIMPLE ===
+[06-Sep-2025 23:55:41 UTC] 📚 Total de unidades en stock: 510
+[06-Sep-2025 23:55:41 UTC] 💰 Ventas de hoy: 0
+[06-Sep-2025 23:55:41 UTC] 💵 Ingresos de hoy: 0
+[06-Sep-2025 23:55:41 UTC] ⚠️ Stock bajo: 0
+[06-Sep-2025 23:55:41 UTC] 👥 Total clientes: 3
+[06-Sep-2025 23:55:41 UTC] ✅ Dashboard Stats: {"totalBooks":510,"salesToday":0,"revenueToday":0,"lowStock":0,"totalClients":3,"newClientsToday":0,"newClientsWeek":0,"topClient":{"name":"Sin datos","purchases":0},"criticalStock":[],"salesByCategory":{"labels":["Ficci\u00f3n","Autoayuda","Infantil","Cl\u00e1sicos","Educativo"],"data":[2,1,1,1,1]},"salesTrend":{"labels":["Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b","Dom"],"data":[0,1,0,2,1,0,1]},"recentActivity":[{"type":"system","icon":"fa-cog","color":"blue","title":"Sistema inicializado","description":"Dashboard conectado con base de datos real","time":"1 min"}]}
+[06-Sep-2025 23:56:16 UTC] 📊 Total stock calculado: 510
+[06-Sep-2025 23:57:30 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:57:39 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:57:41 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:57:44 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:57:55 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:57:55 UTC] 📊 === DASHBOARD API SIMPLE ===
+[06-Sep-2025 23:57:55 UTC] 📚 Total de unidades en stock: 610
+[06-Sep-2025 23:57:55 UTC] 💰 Ventas de hoy: 0
+[06-Sep-2025 23:57:56 UTC] 💵 Ingresos de hoy: 0
+[06-Sep-2025 23:57:56 UTC] ⚠️ Stock bajo: 0
+[06-Sep-2025 23:57:56 UTC] 👥 Total clientes: 3
+[06-Sep-2025 23:57:56 UTC] ✅ Dashboard Stats: {"totalBooks":610,"salesToday":0,"revenueToday":0,"lowStock":0,"totalClients":3,"newClientsToday":0,"newClientsWeek":0,"topClient":{"name":"Sin datos","purchases":0},"criticalStock":[],"salesByCategory":{"labels":["Ficci\u00f3n","Autoayuda","Infantil","Cl\u00e1sicos","Educativo"],"data":[2,1,1,1,1]},"salesTrend":{"labels":["Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b","Dom"],"data":[0,1,0,2,1,0,1]},"recentActivity":[{"type":"system","icon":"fa-cog","color":"blue","title":"Sistema inicializado","description":"Dashboard conectado con base de datos real","time":"1 min"}]}
+[06-Sep-2025 23:58:00 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:58:05 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:58:22 UTC] 📊 Total stock calculado: 610
+[06-Sep-2025 23:58:58 UTC] 📝 UPDATE Book ID: 12
+[06-Sep-2025 23:58:58 UTC] 📦 Input data: {"titulo":"LA IGNORANCIA","subtitulo":"","autor":"CHEBRE PASCUAL","editorial":"EL TIME","isbn":"","isbn13":"","ubicacion":"","descripcion":"","a\u00f1o_publicacion":2020,"paginas":400,"precio_compra":230000,"precio_venta":250000,"stock_actual":90,"stock_minimo":5,"formato":"bolsillo","estado":"disponible","categoria_id":"4","destacado":false,"nuevo_ingreso":false}
+[06-Sep-2025 23:58:58 UTC] 🔄 SQL: UPDATE libros SET titulo = ?, subtitulo = ?, autor = ?, editorial = ?, isbn = ?, isbn13 = ?, año_publicacion = ?, paginas = ?, categoria_id = ?, precio_compra = ?, precio_venta = ?, stock_actual = ?, stock_minimo = ?, ubicacion = ?, descripcion = ?, formato = ?, estado = ?, fecha_actualizacion = NOW() WHERE id = ?
+[06-Sep-2025 23:58:58 UTC] 📊 Values: ["LA IGNORANCIA","","CHEBRE PASCUAL","EL TIME",null,null,2020,400,"4",230000,250000,90,5,"","","bolsillo","disponible","12"]
+[06-Sep-2025 23:58:58 UTC] 📝 ISBN value: NULL
+[06-Sep-2025 23:58:58 UTC] 📝 ISBN13 value: NULL
+[06-Sep-2025 23:58:58 UTC] ✅ Libro actualizado exitosamente. Filas afectadas: 1
+[06-Sep-2025 23:58:58 UTC] 📊 Total stock calculado: 600
+[06-Sep-2025 23:59:13 UTC] 📊 Total stock calculado: 600
+[06-Sep-2025 23:59:13 UTC] 📊 === DASHBOARD API SIMPLE ===
+[06-Sep-2025 23:59:13 UTC] 📚 Total de unidades en stock: 600
+[06-Sep-2025 23:59:13 UTC] 💰 Ventas de hoy: 0
+[06-Sep-2025 23:59:13 UTC] 💵 Ingresos de hoy: 0
+[06-Sep-2025 23:59:13 UTC] ⚠️ Stock bajo: 0
+[06-Sep-2025 23:59:13 UTC] 👥 Total clientes: 3
+[06-Sep-2025 23:59:13 UTC] ✅ Dashboard Stats: {"totalBooks":600,"salesToday":0,"revenueToday":0,"lowStock":0,"totalClients":3,"newClientsToday":0,"newClientsWeek":0,"topClient":{"name":"Sin datos","purchases":0},"criticalStock":[],"salesByCategory":{"labels":["Ficci\u00f3n","Autoayuda","Infantil","Cl\u00e1sicos","Educativo"],"data":[2,1,1,1,1]},"salesTrend":{"labels":["Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b","Dom"],"data":[0,1,0,2,1,0,1]},"recentActivity":[{"type":"system","icon":"fa-cog","color":"blue","title":"Sistema inicializado","description":"Dashboard conectado con base de datos real","time":"1 min"}]}
+[06-Sep-2025 23:59:20 UTC] 📊 Total stock calculado: 600

@@ -424,7 +424,7 @@ const InventoryManager = {
                 this.state.pagination = result.pagination;
                 this.renderBooks();
                 this.renderPagination();
-                this.updateBooksCount();
+                await this.updateBooksCount();
                 this.state.error = null;
             } else {
                 this.showError(result.message);
@@ -512,32 +512,51 @@ const InventoryManager = {
      * Adjuntar event listeners a botones de acción
      */
     attachActionButtons() {
+        console.log('📎 Adjuntando event listeners a botones de acción...');
+        
+        // Remover event listeners existentes primero para evitar duplicación
+        document.querySelectorAll('.btn-view-book, .btn-edit-book, .btn-delete-book').forEach(btn => {
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+        });
+        
         // Botones Ver detalle
-        document.querySelectorAll('.btn-view-book').forEach(btn => {
+        const viewButtons = document.querySelectorAll('.btn-view-book');
+        console.log(`👁️ Encontrados ${viewButtons.length} botones de ver detalles`);
+        viewButtons.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const bookId = btn.getAttribute('data-book-id');
+                console.log(`👁️ Ver detalles clickeado - Botón ${index + 1}, Book ID: ${bookId}`);
                 this.showBookDetails(bookId);
             });
         });
 
         // Botones Editar
-        document.querySelectorAll('.btn-edit-book').forEach(btn => {
+        const editButtons = document.querySelectorAll('.btn-edit-book');
+        console.log(`✏️ Encontrados ${editButtons.length} botones de editar`);
+        editButtons.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const bookId = btn.getAttribute('data-book-id');
+                console.log(`✏️ Editar clickeado - Botón ${index + 1}, Book ID: ${bookId}`);
                 this.showEditBookModal(bookId);
             });
         });
 
         // Botones Eliminar
-        document.querySelectorAll('.btn-delete-book').forEach(btn => {
+        const deleteButtons = document.querySelectorAll('.btn-delete-book');
+        console.log(`🗑️ Encontrados ${deleteButtons.length} botones de eliminar`);
+        deleteButtons.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const bookId = btn.getAttribute('data-book-id');
+                console.log(`🗑️ Eliminar clickeado - Botón ${index + 1}, Book ID: ${bookId}`);
                 this.confirmDeleteBook(bookId);
             });
         });
+        
+        console.log('✅ Event listeners adjuntados correctamente');
     },
 
     /**
@@ -711,11 +730,62 @@ const InventoryManager = {
     },
 
     /**
-     * Actualizar contador de libros
+     * Actualizar contador de libros (suma total de stock de todo el inventario)
      */
-    updateBooksCount() {
+    async updateBooksCount() {
         if (this.elements.booksCount) {
-            this.elements.booksCount.textContent = `${this.state.pagination.total_records} libros`;
+            try {
+                // Obtener el total de stock de todos los libros del inventario
+                const totalStock = await this.getTotalStock();
+                console.log('📊 Total de stock en inventario:', totalStock);
+                
+                this.elements.booksCount.textContent = `${totalStock} unidades en stock`;
+            } catch (error) {
+                console.error('❌ Error obteniendo total de stock:', error);
+                // Fallback: usar los libros de la página actual
+                const currentPageStock = this.state.books.reduce((total, book) => {
+                    return total + (parseInt(book.stock_actual) || 0);
+                }, 0);
+                this.elements.booksCount.textContent = `${currentPageStock}+ unidades`;
+            }
+        }
+    },
+
+    /**
+     * Obtener el total de stock de todo el inventario
+     */
+    async getTotalStock() {
+        try {
+            // Usar una consulta optimizada para obtener solo la suma del stock
+            // Si la API no soporta esto, usar el método tradicional
+            const response = await fetch('api/books.php?action=total_stock');
+            const result = await response.json();
+            
+            // Si la API devuelve el total directamente, usar ese valor
+            if (result.success && result.total_stock !== undefined) {
+                console.log('📊 Total de stock desde API optimizada:', result.total_stock);
+                return result.total_stock;
+            }
+            
+            // Fallback: obtener todos los libros y sumar manualmente
+            const fallbackResponse = await fetch('api/books.php?limit=1000');
+            const fallbackResult = await fallbackResponse.json();
+            
+            if (fallbackResult.success && fallbackResult.data) {
+                const totalStock = fallbackResult.data.reduce((total, book) => {
+                    return total + (parseInt(book.stock_actual) || 0);
+                }, 0);
+                
+                console.log('📊 Calculado desde API (fallback) - Libros encontrados:', fallbackResult.data.length);
+                console.log('📊 Total de stock calculado:', totalStock);
+                
+                return totalStock;
+            } else {
+                throw new Error('No se pudieron obtener los datos de stock');
+            }
+        } catch (error) {
+            console.error('❌ Error en getTotalStock:', error);
+            throw error;
         }
     },
 
@@ -825,11 +895,19 @@ const InventoryManager = {
     /**
      * Mostrar modal de agregar libro
      */
-    showAddBookModal() {
+    showAddBookModal(skipReset = false) {
         if (this.elements.addBookModal) {
-            this.resetAddBookForm();
+            // Solo resetear el formulario si no estamos en modo edición
+            if (!skipReset && !this.state.editingBookId) {
+                console.log('🔄 Reseteando formulario para nuevo libro');
+                this.resetAddBookForm();
+            } else if (skipReset) {
+                console.log('⏭️ Saltando reset del formulario (modo edición)');
+            }
+            
             this.elements.addBookModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            console.log('✅ Modal mostrado');
         }
     },
 
@@ -901,6 +979,21 @@ const InventoryManager = {
             const url = isEditing ? `api/books.php?id=${this.state.editingBookId}` : 'api/books.php';
             const method = isEditing ? 'PUT' : 'POST';
             
+            console.log('🔄 Procesando formulario:', {
+                isEditing,
+                editingBookId: this.state.editingBookId,
+                editingBookIdType: typeof this.state.editingBookId,
+                url,
+                method
+            });
+            
+            console.log('📦 Datos del formulario:', formData);
+            
+            // Verificar que tenemos un ID válido para edición
+            if (isEditing && (!this.state.editingBookId || isNaN(parseInt(this.state.editingBookId)))) {
+                throw new Error('ID de edición inválido');
+            }
+            
             const response = await fetch(url, {
                 method: method,
                 headers: {
@@ -909,11 +1002,25 @@ const InventoryManager = {
                 body: JSON.stringify(formData)
             });
             
+            console.log('📡 Respuesta HTTP:', response.status, response.statusText);
+            
+            // Verificar si hay error de autenticación
+            if (response.status === 401 || response.status === 403) {
+                throw new Error('No está autorizado para realizar esta acción. Por favor, inicie sesión.');
+            }
+            
+            if (!response.ok) {
+                throw new Error(`Error HTTP ${response.status}: ${response.statusText}`);
+            }
+            
             const result = await response.json();
+            console.log('📦 Resultado de API:', result);
             
             if (result.success) {
                 // Mostrar notificación de éxito
                 const message = isEditing ? 'Libro actualizado exitosamente' : 'Libro agregado exitosamente';
+                console.log('✅ Éxito:', message);
+                
                 if (window.NotificationManager) {
                     NotificationManager.showToast(message, 'success');
                 }
@@ -930,13 +1037,16 @@ const InventoryManager = {
                 
             } else {
                 // Mostrar errores del servidor
+                console.error('❌ Error del servidor:', result);
                 const errors = result.errors || [result.message];
                 this.showAddBookErrors(errors);
             }
             
         } catch (error) {
-            console.error('Error agregando libro:', error);
-            this.showAddBookErrors(['Error de conexión. Por favor intente nuevamente.']);
+            console.error('❌ Error en handleAddBook:', error);
+            const isEditing = !!this.state.editingBookId;
+            const errorMessage = isEditing ? 'Error al actualizar el libro' : 'Error al agregar el libro';
+            this.showAddBookErrors([`${errorMessage}: ${error.message}`]);
         } finally {
             this.setSaveButtonState(false);
             
@@ -1055,6 +1165,8 @@ const InventoryManager = {
      * Resetear modo de edición
      */
     resetEditMode() {
+        console.log('🔄 Reseteando modo de edición. ID anterior:', this.state.editingBookId);
+        
         // Limpiar ID de edición
         this.state.editingBookId = null;
         
@@ -1062,6 +1174,7 @@ const InventoryManager = {
         const modalTitle = document.querySelector('#add-book-modal h3');
         if (modalTitle) {
             modalTitle.textContent = 'Agregar Nuevo Libro';
+            console.log('✅ Título del modal restaurado');
         }
         
         // Restaurar texto del botón
@@ -1073,7 +1186,10 @@ const InventoryManager = {
             } else {
                 saveBtn.textContent = 'Guardar Libro';
             }
+            console.log('✅ Texto del botón restaurado');
         }
+        
+        console.log('✅ Modo de edición reseteado');
     },
 
     /**
@@ -1168,27 +1284,66 @@ const InventoryManager = {
      */
     async showEditBookModal(bookId) {
         try {
-            // Buscar el libro en el estado actual o hacer petición a la API
-            let book = this.state.books.find(b => b.id == bookId);
+            console.log('📝 Iniciando edición para libro ID:', bookId, 'Tipo:', typeof bookId);
             
-            if (!book) {
+            // Asegurar que bookId es un número
+            bookId = parseInt(bookId);
+            if (isNaN(bookId)) {
+                throw new Error('ID de libro inválido');
+            }
+            
+            console.log('📊 Estado actual tiene', this.state.books.length, 'libros');
+            console.log('📊 IDs de libros en estado:', this.state.books.map(b => `${b.id} (${typeof b.id})`));
+            
+            // Buscar el libro en el estado actual - comparación estricta de tipos
+            let book = this.state.books.find(b => parseInt(b.id) === bookId);
+            
+            if (book) {
+                console.log('✅ Libro encontrado en estado local:', book);
+            } else {
+                console.log('🔍 Libro no encontrado en estado, buscando en API...');
+                
                 const response = await fetch(`api/books.php?id=${bookId}`);
                 const result = await response.json();
                 
-                if (result.success && result.data.length > 0) {
+                console.log('📡 Respuesta de API:', result);
+                
+                if (result.success && result.data && result.data.length > 0) {
                     book = result.data[0];
+                    console.log('✅ Libro obtenido de API:', book);
                 } else {
-                    throw new Error('Libro no encontrado');
+                    throw new Error('Libro no encontrado en la base de datos');
                 }
             }
             
+            // Verificar que el libro tiene los datos necesarios
+            if (!book.id) {
+                throw new Error('El libro no tiene un ID válido');
+            }
+            
+            console.log('🔄 Cargando datos en formulario...');
             this.populateEditForm(book);
-            this.showAddBookModal(); // Reutilizamos el modal, pero en modo edición
+            this.showAddBookModal(true); // Reutilizamos el modal, pero en modo edición (skip reset)
+            
+            console.log('✅ Modal de edición abierto correctamente');
             
         } catch (error) {
-            console.error('Error cargando libro para editar:', error);
+            console.error('❌ Error cargando libro para editar:', error);
+            
+            // Mostrar error más específico al usuario
+            let errorMessage = 'Error al cargar el libro para editar';
+            if (error.message.includes('No autorizado')) {
+                errorMessage = 'No tiene permisos para editar este libro. Por favor, inicie sesión.';
+            } else if (error.message.includes('Libro no encontrado')) {
+                errorMessage = 'El libro seleccionado no existe o ha sido eliminado.';
+            } else if (error.message.includes('ID de libro inválido')) {
+                errorMessage = 'Error: ID de libro inválido.';
+            }
+            
             if (window.NotificationManager) {
-                NotificationManager.showToast('Error al cargar el libro para editar', 'error');
+                NotificationManager.showToast(errorMessage, 'error');
+            } else {
+                alert(errorMessage);
             }
         }
     },
@@ -1262,16 +1417,30 @@ const InventoryManager = {
      * Poblar formulario de edición con datos del libro
      */
     populateEditForm(book) {
+        console.log('📝 Poblando formulario con datos del libro:', book);
+        
         // Cambiar título del modal
         const modalTitle = document.querySelector('#add-book-modal h3');
         if (modalTitle) {
             modalTitle.textContent = 'Editar Libro';
+            console.log('✅ Título del modal cambiado');
+        } else {
+            console.warn('⚠️ No se encontró el título del modal');
         }
         
         // Cambiar texto del botón
         const saveText = document.getElementById('save-btn-text');
         if (saveText) {
             saveText.textContent = 'Actualizar Libro';
+            console.log('✅ Texto del botón cambiado');
+        } else {
+            console.warn('⚠️ No se encontró el texto del botón guardar');
+        }
+        
+        // Resetear formulario primero para limpiar datos previos
+        if (this.elements.addBookForm) {
+            console.log('🔄 Limpiando formulario antes de cargar datos...');
+            // No hacer reset completo, solo limpiar valores
         }
         
         // Llenar campos con datos del libro
@@ -1287,6 +1456,8 @@ const InventoryManager = {
             { id: 'book-paginas', value: book.paginas },
             { id: 'book-idioma', value: book.idioma },
             { id: 'book-categoria', value: book.categoria_id },
+            { id: 'book-formato', value: book.formato },
+            { id: 'book-estado', value: book.estado },
             { id: 'book-precio-compra', value: book.precio_compra },
             { id: 'book-precio-venta', value: book.precio_venta },
             { id: 'book-stock-actual', value: book.stock_actual },
@@ -1298,15 +1469,60 @@ const InventoryManager = {
             { id: 'book-dimensiones', value: book.dimensiones }
         ];
         
+        let fieldsFound = 0;
+        let fieldsPopulated = 0;
+        
         fields.forEach(field => {
             const element = document.getElementById(field.id);
-            if (element && field.value !== null && field.value !== undefined) {
-                element.value = field.value;
+            if (element) {
+                fieldsFound++;
+                if (field.value !== null && field.value !== undefined && field.value !== '') {
+                    element.value = field.value;
+                    fieldsPopulated++;
+                    console.log(`✅ Campo ${field.id} = "${field.value}"`);
+                } else {
+                    element.value = ''; // Limpiar campo si no hay valor
+                    console.log(`⚪ Campo ${field.id} vacío`);
+                }
+            } else {
+                console.warn(`⚠️ Campo ${field.id} no encontrado en el DOM`);
+            }
+        });
+        
+        console.log(`📊 Campos encontrados: ${fieldsFound}/${fields.length}, poblados: ${fieldsPopulated}`);
+        
+        // Manejar checkboxes por separado
+        const checkboxFields = [
+            { id: 'book-destacado', value: book.destacado },
+            { id: 'book-nuevo-ingreso', value: book.nuevo_ingreso }
+        ];
+        
+        checkboxFields.forEach(field => {
+            const element = document.getElementById(field.id);
+            if (element) {
+                // Convertir valores de BD (0/1, "0"/"1", true/false) a boolean
+                const isChecked = !!(field.value && field.value !== '0' && field.value !== 0);
+                element.checked = isChecked;
+                console.log(`✅ Checkbox ${field.id} = ${isChecked} (valor original: ${field.value})`);
+            } else {
+                console.warn(`⚠️ Checkbox ${field.id} no encontrado`);
             }
         });
         
         // Agregar ID del libro al formulario para identificar que es edición
         this.state.editingBookId = book.id;
+        console.log(`✅ ID de edición establecido: ${book.id}`);
+        
+        // Forzar actualización visual
+        setTimeout(() => {
+            console.log('🔄 Verificando campos después de 100ms...');
+            fields.slice(0, 5).forEach(field => {
+                const element = document.getElementById(field.id);
+                if (element) {
+                    console.log(`🔍 ${field.id} valor actual: "${element.value}"`);
+                }
+            });
+        }, 100);
     },
 
     /**
@@ -1373,44 +1589,44 @@ const InventoryManager = {
                     <div>
                         <h4 class="font-semibold text-gray-700 mb-2">Información Básica</h4>
                         <div class="bg-gray-50 p-4 rounded">
-                            <p><span class="font-medium">Título:</span> ${book.titulo || 'N/A'}</p>
-                            ${book.subtitulo ? `<p><span class="font-medium">Subtítulo:</span> ${book.subtitulo}</p>` : ''}
-                            <p><span class="font-medium">Autor:</span> ${book.autor || 'N/A'}</p>
-                            <p><span class="font-medium">Editorial:</span> ${book.editorial || 'N/A'}</p>
-                            <p><span class="font-medium">Categoría:</span> ${book.categoria_nombre || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Título:</span> ${book.titulo || 'N/A'}</p>
+                            ${book.subtitulo ? `<p class="text-gray-800"><span class="font-medium text-gray-900">Subtítulo:</span> ${book.subtitulo}</p>` : ''}
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Autor:</span> ${book.autor || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Editorial:</span> ${book.editorial || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Categoría:</span> ${book.categoria_nombre || 'N/A'}</p>
                         </div>
                     </div>
                     
                     <div>
                         <h4 class="font-semibold text-gray-700 mb-2">Detalles de Publicación</h4>
                         <div class="bg-gray-50 p-4 rounded">
-                            <p><span class="font-medium">ISBN:</span> ${book.isbn || 'N/A'}</p>
-                            <p><span class="font-medium">ISBN-13:</span> ${book.isbn13 || 'N/A'}</p>
-                            <p><span class="font-medium">Año:</span> ${book.año_publicacion || 'N/A'}</p>
-                            <p><span class="font-medium">Edición:</span> ${book.edicion || 'N/A'}</p>
-                            <p><span class="font-medium">Páginas:</span> ${book.paginas || 'N/A'}</p>
-                            <p><span class="font-medium">Idioma:</span> ${book.idioma || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">ISBN:</span> ${book.isbn || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">ISBN-13:</span> ${book.isbn13 || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Año:</span> ${book.año_publicacion || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Edición:</span> ${book.edicion || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Páginas:</span> ${book.paginas || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Idioma:</span> ${book.idioma || 'N/A'}</p>
                         </div>
                     </div>
                     
                     <div>
                         <h4 class="font-semibold text-gray-700 mb-2">Precios e Inventario</h4>
                         <div class="bg-gray-50 p-4 rounded">
-                            <p><span class="font-medium">Precio Compra:</span> $${Number(book.precio_compra || 0).toLocaleString()}</p>
-                            <p><span class="font-medium">Precio Venta:</span> $${Number(book.precio_venta || 0).toLocaleString()}</p>
-                            <p><span class="font-medium">Stock Actual:</span> ${book.stock_actual || 0}</p>
-                            <p><span class="font-medium">Stock Mínimo:</span> ${book.stock_minimo || 0}</p>
-                            <p><span class="font-medium">Estado:</span> <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">${book.estado || 'N/A'}</span></p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Precio Compra:</span> $${Number(book.precio_compra || 0).toLocaleString()}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Precio Venta:</span> $${Number(book.precio_venta || 0).toLocaleString()}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Stock Actual:</span> ${book.stock_actual || 0}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Stock Mínimo:</span> ${book.stock_minimo || 0}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Estado:</span> <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">${book.estado || 'N/A'}</span></p>
                         </div>
                     </div>
                     
                     <div>
                         <h4 class="font-semibold text-gray-700 mb-2">Información Adicional</h4>
                         <div class="bg-gray-50 p-4 rounded">
-                            <p><span class="font-medium">Ubicación:</span> ${book.ubicacion || 'N/A'}</p>
-                            <p><span class="font-medium">Peso:</span> ${book.peso || 'N/A'}g</p>
-                            <p><span class="font-medium">Dimensiones:</span> ${book.dimensiones || 'N/A'}</p>
-                            <p><span class="font-medium">Código Barras:</span> ${book.codigo_barras || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Ubicación:</span> ${book.ubicacion || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Peso:</span> ${book.peso || 'N/A'}g</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Dimensiones:</span> ${book.dimensiones || 'N/A'}</p>
+                            <p class="text-gray-800"><span class="font-medium text-gray-900">Código Barras:</span> ${book.codigo_barras || 'N/A'}</p>
                         </div>
                     </div>
                 </div>
@@ -1419,7 +1635,7 @@ const InventoryManager = {
                 <div class="md:col-span-2">
                     <h4 class="font-semibold text-gray-700 mb-2">Descripción</h4>
                     <div class="bg-gray-50 p-4 rounded">
-                        <p class="text-gray-600">${book.descripcion}</p>
+                        <p class="text-gray-800">${book.descripcion}</p>
                     </div>
                 </div>
                 ` : ''}

@@ -33,9 +33,9 @@ try {
     // Obtener estadísticas principales
     $stats = [];
 
-    // 1. Total de libros en inventario
-    $totalBooks = executeQuerySingle("SELECT COUNT(*) as total FROM libros WHERE estado = 'activo'");
-    $stats['totalBooks'] = (int)$totalBooks['total'];
+    // 1. Total de unidades en stock (suma de todo el inventario)
+    $totalStock = executeQuerySingle("SELECT SUM(stock_actual) as total FROM libros WHERE estado != 'descontinuado'");
+    $stats['totalBooks'] = (int)($totalStock['total'] ?? 0);
 
     // 2. Ventas de hoy
     $today = date('Y-m-d');
@@ -47,15 +47,15 @@ try {
     $stats['revenueToday'] = (float)$revenueToday['total'];
 
     // 4. Stock bajo (libros con stock <= stock_minimo)
-    $lowStock = executeQuerySingle("SELECT COUNT(*) as total FROM libros WHERE estado = 'activo' AND stock_actual <= stock_minimo");
+    $lowStock = executeQuerySingle("SELECT COUNT(*) as total FROM libros WHERE estado IN ('disponible', 'reservado', 'agotado') AND stock_actual <= stock_minimo");
     $stats['lowStock'] = (int)$lowStock['total'];
 
     // 5. Total de clientes
-    $totalClients = executeQuerySingle("SELECT COUNT(*) as total FROM clientes WHERE estado = 'activo'");
+    $totalClients = executeQuerySingle("SELECT COUNT(*) as total FROM clientes");
     $stats['totalClients'] = (int)$totalClients['total'];
 
     // 6. Clientes nuevos hoy
-    $newClientsToday = executeQuerySingle("SELECT COUNT(*) as total FROM clientes WHERE DATE(fecha_registro) = ?", [$today]);
+    $newClientsToday = executeQuerySingle("SELECT COUNT(*) as total FROM clientes WHERE DATE(fecha_creacion) = ?", [$today]);
     $stats['newClientsToday'] = (int)$newClientsToday['total'];
 
     // 7. Clientes nuevos esta semana

@@ -908,8 +908,13 @@ const DashboardManager = {
      * Función para recargar datos manualmente
      */
     async forceRefresh() {
-        console.log('🔄 Forzando recarga de datos...');
+        console.log('🔄 Forzando recarga completa del dashboard...');
+        console.log('🔄 Estado antes de recargar:', this.state.data.kpis);
+        
         await this.loadDashboardData();
+        
+        console.log('🔄 Estado después de cargar datos:', this.state.data.kpis);
+        
         this.renderKPIs();
         this.renderRecentActivity();
         this.renderCriticalStock();
@@ -926,12 +931,34 @@ const DashboardManager = {
             this.state.charts.salesTrend.update();
         }
         
-        console.log('✅ Dashboard recargado manualmente');
+        console.log('✅ Dashboard recargado manualmente - Valores actuales:', this.state.data.kpis);
+    },
+
+    /**
+     * Función de debugging para verificar estado
+     */
+    debugDashboard() {
+        console.log('🐛 === DEBUG DASHBOARD ===');
+        console.log('🐛 Estado inicializado:', this.state.isInitialized);
+        console.log('🐛 Datos KPIs:', this.state.data.kpis);
+        console.log('🐛 Elemento totalBooks:', document.querySelector('[data-kpi="totalBooks"]'));
+        console.log('🐛 Contenido actual totalBooks:', document.querySelector('[data-kpi="totalBooks"]')?.textContent);
+        
+        // Probar API directamente
+        fetch('api_dashboard_simple.php')
+            .then(r => r.json())
+            .then(data => {
+                console.log('🐛 Respuesta directa API:', data.data?.totalBooks);
+            })
+            .catch(e => console.error('🐛 Error API:', e));
     }
 };
 
 // Mantener compatibilidad con la implementación anterior
 const DashboardComponent = DashboardManager;
+
+// Exponer DashboardManager globalmente para debugging
+window.DashboardManager = DashboardManager;
 
 // Exportar para uso global
 window.DashboardManager = DashboardManager;

@@ -254,6 +254,47 @@ button[class*="bg-gray"]:hover {
     color: #111827 !important;
 }
 
+/* Corrección específica para modal de detalles del libro */
+#book-details-modal {
+    color: #111827 !important; /* Asegurar que todo el modal tenga texto oscuro */
+}
+
+#book-details-modal h3,
+#book-details-modal h4 {
+    color: #111827 !important;
+    font-weight: 600;
+}
+
+#book-details-modal p {
+    color: #374151 !important; /* Gris oscuro para párrafos */
+}
+
+#book-details-modal .font-medium {
+    color: #111827 !important; /* Texto de labels más oscuro */
+    font-weight: 600;
+}
+
+/* Fondo de las secciones del modal */
+#book-details-modal .bg-gray-50 {
+    background-color: #f9fafb !important;
+    border: 1px solid #e5e7eb;
+}
+
+/* Asegurar que todos los elementos de texto del modal sean visibles */
+#book-details-modal * {
+    color: inherit;
+}
+
+/* Corrección para spans con información específica */
+#book-details-modal span:not(.inline-flex) {
+    color: inherit !important;
+}
+
+/* Badge de estado mantiene sus colores */
+#book-details-modal .inline-flex {
+    color: inherit !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     input, select, textarea, button {

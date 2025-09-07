@@ -54,6 +54,12 @@ try {
  * Manejar búsqueda y filtrado de libros
  */
 function handleGetBooks() {
+    // Verificar si se solicita el total de stock
+    $action = $_GET['action'] ?? null;
+    if ($action === 'total_stock') {
+        return getTotalStock();
+    }
+    
     // Si se proporciona un ID específico, devolver ese libro
     $bookId = $_GET['id'] ?? null;
     if ($bookId && is_numeric($bookId)) {
@@ -196,6 +202,33 @@ function handleGetBooks() {
             'nuevo_ingreso' => $nuevo_ingreso
         ]
     ]);
+}
+
+/**
+ * Obtener el total de stock de todos los libros
+ */
+function getTotalStock() {
+    try {
+        $sql = "SELECT SUM(stock_actual) as total_stock FROM libros WHERE estado != 'descontinuado'";
+        $result = executeQuerySingle($sql);
+        
+        $totalStock = intval($result['total_stock'] ?? 0);
+        
+        error_log("📊 Total stock calculado: $totalStock");
+        
+        echo json_encode([
+            'success' => true,
+            'total_stock' => $totalStock,
+            'message' => 'Total de stock obtenido exitosamente'
+        ]);
+        
+    } catch (Exception $e) {
+        error_log("❌ Error obteniendo total de stock: " . $e->getMessage());
+        echo json_encode([
+            'success' => false,
+            'message' => 'Error al obtener el total de stock: ' . $e->getMessage()
+        ]);
+    }
 }
 
 /**
@@ -433,6 +466,10 @@ function handleUpdateBook() {
     try {
         beginTransaction();
         
+        // Log de datos recibidos
+        error_log("📝 UPDATE Book ID: $bookId");
+        error_log("📦 Input data: " . json_encode($input));
+        
         // Campos actualizables
         $allowedFields = [
             'titulo', 'subtitulo', 'autor', 'editorial', 'isbn', 'isbn13',
@@ -447,23 +484,47 @@ function handleUpdateBook() {
         
         foreach ($allowedFields as $field) {
             if (array_key_exists($field, $input)) {
+                // Manejar campos que deben ser NULL en lugar de cadena vacía para evitar duplicados
+                $value = $input[$field];
+                if (($field === 'isbn' || $field === 'isbn13') && trim($value) === '') {
+                    $value = null; // Usar NULL en lugar de cadena vacía para campos únicos
+                }
+                
                 $updateFields[] = "$field = ?";
-                $updateValues[] = $input[$field];
+                $updateValues[] = $value;
             }
         }
         
-        // Agregar fecha de modificación
-        $updateFields[] = 'fecha_modificacion = NOW()';
+        // Agregar fecha de actualización
+        $updateFields[] = 'fecha_actualizacion = NOW()';
         
         // Agregar ID al final para la cláusula WHERE
         $updateValues[] = $bookId;
         
         $sql = "UPDATE libros SET " . implode(', ', $updateFields) . " WHERE id = ?";
         
+        error_log("🔄 SQL: $sql");
+        error_log("📊 Values: " . json_encode($updateValues));
+        
+        // Log para depurar el problema de ISBN
+        $isbnValue = null;
+        $isbn13Value = null;
+        foreach ($allowedFields as $i => $field) {
+            if ($field === 'isbn' && array_key_exists($field, $input)) {
+                $isbnValue = $updateValues[array_search($field, array_keys($input))];
+            }
+            if ($field === 'isbn13' && array_key_exists($field, $input)) {
+                $isbn13Value = $updateValues[array_search($field, array_keys($input))];
+            }
+        }
+        error_log("📝 ISBN value: " . var_export($isbnValue, true));
+        error_log("📝 ISBN13 value: " . var_export($isbn13Value, true));
+        
         $result = executeUpdate($sql, $updateValues);
         
         if ($result !== false) {
             commitTransaction();
+            error_log("✅ Libro actualizado exitosamente. Filas afectadas: $result");
             
             // Obtener el libro actualizado con toda la información
             $updatedBook = executeQuerySingle("
@@ -479,10 +540,12 @@ function handleUpdateBook() {
             echo json_encode([
                 'success' => true, 
                 'message' => 'Libro actualizado exitosamente',
-                'data' => $updatedBook
+                'data' => $updatedBook,
+                'rows_affected' => $result
             ]);
         } else {
             rollbackTransaction();
+            error_log("❌ Error: executeUpdate retornó false");
             http_response_code(500);
             echo json_encode(['success' => false, 'message' => 'Error al actualizar el libro en la base de datos']);
         }
