@@ -1,1 +1,9 @@
 [07-Sep-2025 00:00:48 UTC] 📚 API Simple Libros: 0 libros encontrados
+[07-Sep-2025 00:10:58 UTC] 📊 Total stock calculado: 600
+[07-Sep-2025 00:10:58 UTC] 📊 === DASHBOARD API SIMPLE ===
+[07-Sep-2025 00:10:58 UTC] 📚 Total de unidades en stock: 600
+[07-Sep-2025 00:10:58 UTC] 💰 Ventas de hoy: 0
+[07-Sep-2025 00:10:58 UTC] 💵 Ingresos de hoy: 0
+[07-Sep-2025 00:10:58 UTC] ⚠️ Stock bajo: 0
+[07-Sep-2025 00:10:58 UTC] 👥 Total clientes: 3
+[07-Sep-2025 00:10:58 UTC] ✅ Dashboard Stats: {"totalBooks":600,"salesToday":0,"revenueToday":0,"lowStock":0,"totalClients":3,"newClientsToday":0,"newClientsWeek":0,"topClient":{"name":"Sin datos","purchases":0},"criticalStock":[],"salesByCategory":{"labels":["Ficci\u00f3n","Autoayuda","Infantil","Cl\u00e1sicos","Educativo"],"data":[2,1,1,1,1]},"salesTrend":{"labels":["Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b","Dom"],"data":[0,1,0,2,1,0,1]},"recentActivity":[{"type":"system","icon":"fa-cog","color":"blue","title":"Sistema inicializado","description":"Dashboard conectado con base de datos real","time":"1 min"}]}
